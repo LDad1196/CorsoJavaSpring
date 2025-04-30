@@ -52,8 +52,8 @@ public class DocenteController {
     }
 
     // DELETE
-    @GetMapping("/{id}/delete")
-    public String delete(@PathVariable Integer id_docente) {
+    @GetMapping("/{id_docente}/delete")
+    public String delete(@PathVariable("id_docente") Integer id_docente) {
         docenteService.delete(id_docente);
         return "redirect:/docenti/lista";
     }
