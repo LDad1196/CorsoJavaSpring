@@ -2,12 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Docente;
 import com.example.demo.service.DocenteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,37 +35,27 @@ public class DocenteController {
     }
 
     // SALVA NUOVO
-    @PostMapping
-    public String create(@ModelAttribute("docente") Docente docente,
+    @PostMapping("/salva")
+    public String create(@Valid @ModelAttribute("docente") Docente docente,
                          BindingResult br) {
         if (br.hasErrors()) return "form-docente";
         docenteService.save(docente);
-        return "redirect:/docenti";
+        return "redirect:/docenti/lista";
     }
 
     // FORM EDIT
-    @GetMapping("/{id}/edit")
-    public String showEdit(@PathVariable Long id, Model model) {
-        model.addAttribute("docente", docenteService.get(id));
-        return "form-docente";
-    }
-
-    // AGGIORNA
-    @PostMapping("/{id}")
-    public String update(@PathVariable Long id,
-                         @ModelAttribute("docente") Docente docente,
-                         BindingResult br) {
-        if (br.hasErrors()) return "form-docente";
-        docente.setId(id);
-        docenteService.save(docente);
-        return "redirect:/docenti";
+    @GetMapping("/{id_docente}/edit")
+    public String showEdit(@PathVariable("id_docente") Integer id_docente, Model model) {
+        Docente docente = docenteService.findById(id_docente);
+        model.addAttribute("docente", docente);
+        return "form-docente-modifica";
     }
 
     // DELETE
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable Long id) {
-        docenteService.delete(id);
-        return "redirect:/docenti";
+    public String delete(@PathVariable Integer id_docente) {
+        docenteService.delete(id_docente);
+        return "redirect:/docenti/lista";
     }
 
 

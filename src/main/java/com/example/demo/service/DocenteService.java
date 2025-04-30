@@ -18,15 +18,15 @@ public class DocenteService {
         return docenteRepository.findAll();
     }
 
-    public Docente get(Long id) {
-        return docenteRepository.findById(id).orElseThrow();
+    public Docente findById(Integer id_docente) {
+        return docenteRepository.findById(id_docente).orElse(null);
     }
 
-    public Docente save(Docente d) {
-        return docenteRepository.save(d);
+    public Docente save(Docente docente) {
+        return docenteRepository.save(docente);
     }
 
-    public void delete(Long id) {
-        docenteRepository.deleteById(id);
+    public void delete(Integer id_docente) {
+        docenteRepository.deleteById(id_docente);
     }
 }
