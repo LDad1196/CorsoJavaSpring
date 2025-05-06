@@ -34,7 +34,7 @@ public class DocenteController {
         return "form-docente";
     }
 
-    // SALVA NUOVO
+    // SALVA
     @PostMapping("/salva")
     public String create(@Valid @ModelAttribute("docente") Docente docente,
                          BindingResult br) {

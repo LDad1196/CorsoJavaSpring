@@ -11,7 +11,11 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>ID</th><th>Nome</th><th>Cognome</th><th>Data di nascita</th><th>Azioni</th>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Data di nascita</th>
+        <th>Azioni</th>
     </tr>
     </thead>
     <tbody>
