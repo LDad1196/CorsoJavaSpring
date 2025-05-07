@@ -27,4 +27,8 @@ public class StudenteService {
     public void delete(Integer id_studente) {
         studenteRepository.deleteById(id_studente);
     }
+
+    public List<Studente> cercaPerNome(String nome) {
+        return studenteRepository.cercaPerNome(nome);
+    }
 }

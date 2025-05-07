@@ -1,16 +1,14 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Docente;
 import com.example.demo.entity.Studente;
 import com.example.demo.service.StudenteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,42 +19,51 @@ public class StudenteController {
     StudenteService studenteService;
 
     @GetMapping("/lista")
-    public String list (Model model) {
-        List<Studente> studenti = new ArrayList<>();
-        studenti = studenteService.findAll();
-        model.addAttribute("studenti", studenti);
-        return "list-studenti";
+    public ModelAndView list() {
+        List<Studente> studenti = studenteService.findAll();
+        ModelAndView mav = new ModelAndView("list-studenti");
+        mav.addObject("studenti", studenti);
+        return mav;
     }
 
     @GetMapping("/nuovo")
-    public String showAdd(Model model) {
-        model.addAttribute("studente", new Studente());
-        return "form-studente";
+    public ModelAndView showAdd() {
+        ModelAndView mav = new ModelAndView("form-studente");
+        mav.addObject("studente", new Studente());
+        return mav;
     }
 
     @PostMapping("/salva")
-    public String create(@Valid @ModelAttribute("studente") Studente studente,
-                         BindingResult br) {
-        if (br.hasErrors()) return "form-studente";
+    public ModelAndView create(@Valid @ModelAttribute("studente") Studente studente,
+                               BindingResult br) {
+        if (br.hasErrors()) {
+            ModelAndView mav = new ModelAndView("form-studente");
+            mav.addObject("studente", studente);
+            return mav;
+        }
         studenteService.save(studente);
-        return "redirect:/studenti/lista";
+        return new ModelAndView("redirect:/studenti/lista");
     }
 
     @GetMapping("/{id_studente}/edit")
-    public String showEdit(@PathVariable("id_studente") Integer id_studente, Model model) {
+    public ModelAndView showEdit(@PathVariable("id_studente") Integer id_studente) {
         Studente studente = studenteService.findById(id_studente);
-        model.addAttribute("studente", studente);
-        return "form-studente";
+        ModelAndView mav = new ModelAndView("form-studente");
+        mav.addObject("studente", studente);
+        return mav;
     }
 
     @GetMapping("/{id_studente}/delete")
-    public String delete(@PathVariable("id_studente") Integer id_studente) {
+    public ModelAndView delete(@PathVariable("id_studente") Integer id_studente) {
         studenteService.delete(id_studente);
-        return "redirect:/studenti/lista";
+        return new ModelAndView("redirect:/studenti/lista");
     }
 
-
-
-
-
+    @GetMapping("/cerca")
+    public ModelAndView cerca(@RequestParam("nome") String nome) {
+        List<Studente> risultati = studenteService.cercaPerNome(nome);
+        ModelAndView mav = new ModelAndView("list-studenti");
+        mav.addObject("studenti", risultati);
+        return mav;
+    }
 }

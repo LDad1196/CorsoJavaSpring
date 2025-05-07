@@ -2,5 +2,12 @@ package com.example.demo.repository;
 
 import com.example.demo.entity.Studente;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-public interface StudenteRepository extends JpaRepository<Studente, Integer> {}
+import java.util.List;
+
+public interface StudenteRepository extends JpaRepository<Studente, Integer> {
+    @Query("SELECT s FROM Studente s WHERE s.nome LIKE %:nome%")
+    List<Studente> cercaPerNome(@Param("nome") String nome);
+}

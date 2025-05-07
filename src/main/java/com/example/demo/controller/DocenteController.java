@@ -58,12 +58,11 @@ public class DocenteController {
         return "redirect:/docenti/lista";
     }
 
-
-
-
-
-
-
-
+    @GetMapping("/cerca")
+    public String cerca(@RequestParam("nome") String nome, Model model) {
+        List<Docente> risultati = docenteService.cercaPerNome(nome);
+        model.addAttribute("docenti", risultati);
+        return "list-docenti";
+    }
 }
 
