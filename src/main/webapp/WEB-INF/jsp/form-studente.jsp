@@ -8,7 +8,16 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 </head>
 <body class="container mt-4">
-        <h1>Nuovo Studente</h1>
+        <h1>
+            <c:choose>
+                <c:when test="${studente.id_studente != null}">
+                    Modifica Studente
+                </c:when>
+                <c:otherwise>
+                    Nuovo Studente
+                </c:otherwise>
+            </c:choose>
+        </h1>
 
         <form:form method="post" modelAttribute="studente" action="${pageContext.request.contextPath}/studenti/salva">
             <form:hidden path="id_studente"/>

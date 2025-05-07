@@ -14,23 +14,23 @@ public class Studente {
     private Integer id_studente;
 
     @Column(nullable = false)
-    @NotBlank(message = "Il nome è obbligatorio")
+    @NotBlank(message = "Inserisci il nome")
     private String nome;
 
     @Column(nullable = false)
-    @NotBlank(message = "Il cognome è obbligatorio")
+    @NotBlank(message = "Inserisci il cognome")
     private String cognome;
 
     @Column(nullable = false)
-    @NotNull(message = "La matricola è obbligatoria")
+    @NotNull(message = "Inserisci la matricola")
     private Integer matricola;
 
     @Column(nullable = false)
-    @NotNull(message = "L'età è obbligatoria!")
+    @NotNull(message = "Inserisci l'età")
     private Integer età;
 
     @Column(nullable = false)
-    @NotBlank(message = "La città di residenza è un campo obbligatorio!")
+    @NotBlank(message = "Inserisci la città di residenza")
     private String città_di_residenza;
 
     public Studente() {}

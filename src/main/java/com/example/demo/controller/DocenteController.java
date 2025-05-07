@@ -48,7 +48,7 @@ public class DocenteController {
     public String showEdit(@PathVariable("id_docente") Integer id_docente, Model model) {
         Docente docente = docenteService.findById(id_docente);
         model.addAttribute("docente", docente);
-        return "form-docente-modifica";
+        return "form-docente";
     }
 
     // DELETE

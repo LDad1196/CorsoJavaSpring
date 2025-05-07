@@ -7,7 +7,16 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 </head>
 <body class="container mt-4">
-        <h1>Nuovo Docente</h1>
+        <h1>
+            <c:choose>
+                <c:when test="${docente.id_docente != null}">
+                    Modifica Docente
+                </c:when>
+                <c:otherwise>
+                    Nuovo Docente
+                </c:otherwise>
+            </c:choose>
+        </h1>
 
         <form:form method="post" modelAttribute="docente" action="${pageContext.request.contextPath}/docenti/salva">
             <form:hidden path="id_docente"/>

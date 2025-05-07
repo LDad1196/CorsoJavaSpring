@@ -46,7 +46,7 @@ public class StudenteController {
     public String showEdit(@PathVariable("id_studente") Integer id_studente, Model model) {
         Studente studente = studenteService.findById(id_studente);
         model.addAttribute("studente", studente);
-        return "form-studente-modifica";
+        return "form-studente";
     }
 
     @GetMapping("/{id_studente}/delete")
