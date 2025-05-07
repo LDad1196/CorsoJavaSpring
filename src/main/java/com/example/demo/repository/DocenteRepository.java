@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface DocenteRepository extends JpaRepository<Docente, Integer> {
-    @Query("SELECT d FROM Docente d WHERE d.nome LIKE %:nome%")
+    @Query("SELECT d FROM Docente d WHERE LOWER(d.nome) LIKE LOWER (CONCAT ('%', :nome, '%'))")
     List<Docente> cercaPerNome(@Param("nome") String nome);
 }

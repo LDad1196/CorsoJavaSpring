@@ -3,6 +3,8 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "docente")
 public class Docente {
@@ -64,4 +66,14 @@ public class Docente {
         this.data_di_nascita = data_di_nascita;
     }
 
+    @OneToMany(
+            mappedBy = "docente",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    private Set<Corso> corsi;
+
+    public Set<Corso> getCorsi() {
+        return corsi;
+    }
 }

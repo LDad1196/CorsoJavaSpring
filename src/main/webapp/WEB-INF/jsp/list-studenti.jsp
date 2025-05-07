@@ -23,6 +23,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value='/docenti/lista'/>">Docenti</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value='/corsi/lista'/>">Corsi</a>
+                </li>
             </ul>
         </div>
     </div>

@@ -1,11 +1,11 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
-    <title>Nuovo Docente</title>
+    <title>Elenco Corsi</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 </head>
+<body class="container mt-4">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container-fluid">
         <a class="navbar-brand" href="${pageContext.request.contextPath}/">Gestione Scuola</a>
@@ -28,40 +28,35 @@
         </div>
     </div>
 </nav>
-        <h1>
-            <c:choose>
-                <c:when test="${docente.id_docente != null}">
-                    Modifica Docente
-                </c:when>
-                <c:otherwise>
-                    Nuovo Docente
-                </c:otherwise>
-            </c:choose>
-        </h1>
+<h1>Elenco Corsi</h1>
 
-        <form:form method="post" modelAttribute="docente" action="${pageContext.request.contextPath}/docenti/salva">
-            <form:hidden path="id_docente"/>
-
-            <div class="mb-3">
-                <label for="nome">Nome:</label>
-                <form:input path="nome" id="nome" cssClass="form-control"/>
-                <form:errors path="nome" cssClass="text-danger"/>
-            </div>
-
-            <div class="mb-3">
-                <label for="cognome">Cognome:</label>
-                <form:input path="cognome" id="cognome" cssClass="form-control"/>
-                <form:errors path="cognome" cssClass="text-danger"/>
-            </div>
-
-            <div class="mb-3">
-                <label for="data_di_nascita">Data di nascita:</label>
-                <form:input path="data_di_nascita" type="date" id="data_di_nascita" cssClass="form-control"/>
-                <form:errors path="data_di_nascita" cssClass="text-danger"/>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Salva</button>
-        </form:form>
+<a class="btn btn-primary mb-3" href="<c:url value='/corsi/nuovo'/>">Nuovo Corso</a>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Anno Accademico</th>
+        <th>ID Docente</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="corso" items="${corsi}">
+        <tr>
+            <td>${corso.id_corso}</td>
+            <td>${corso.nome}</td>
+            <td>${corso.anno_accademico}</td>
+            <td>${corso.docente.id_docente}</td>
+            <td>
+                <a class="btn btn-sm btn-secondary" href="<c:url value='/corsi/${corso.id_corso}/edit'/>">Modifica</a>
+                <a class="btn btn-sm btn-danger"
+                   href="<c:url value='/corsi/${corso.id_corso}/delete'/>"
+                   onclick="return confirm('Sei sicuro?')">Elimina</a>
+            </td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
