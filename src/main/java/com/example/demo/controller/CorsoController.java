@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Corso;
 import com.example.demo.entity.Docente;
+import com.example.demo.entity.Studente;
 import com.example.demo.service.CorsoService;
 import com.example.demo.service.DocenteService;
+import com.example.demo.service.StudenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,11 @@ public class CorsoController {
     @Autowired
     DocenteService docenteService;
 
+    @Autowired
+    StudenteService studenteService;
+
+    //Metodi get
+    //Visualizza lista
     @GetMapping("/lista")
     public ModelAndView list() {
         List<Corso> corsi = corsoService.findAll();
@@ -29,14 +36,50 @@ public class CorsoController {
         return modelAndView;
     }
 
+    //Visualizza form nuovo corso
     @GetMapping("/nuovo")
     public ModelAndView mostraFormNuovoCorso() {
+        Corso corso = new Corso();
         ModelAndView mav = new ModelAndView("form-corso"); // nome del JSP nella cartella /WEB-INF/jsp/
-        mav.addObject("corso", new Corso());
+        mav.addObject("corso", corso);
         mav.addObject("docenti", docenteService.findAll());
+        mav.addObject("tuttiStudenti", studenteService.findAll());
+        mav.addObject("studentiIscritti", corso.getStudenti());
         return mav;
     }
 
+    //Chiamata form di modifica del corso, con modifica studenti
+    @GetMapping("/{id_corso}/edit")
+    public ModelAndView showEdit(@PathVariable("id_corso") Integer id_corso) {
+        Corso corso = corsoService.findById(id_corso);
+        ModelAndView modelAndView = new ModelAndView("form-corso");
+        modelAndView.addObject("corso", corso);
+        modelAndView.addObject("docenti", docenteService.findAll());
+        modelAndView.addObject("tuttiStudenti", studenteService.findAll());
+        modelAndView.addObject("studentiIscritti", corso.getStudenti());
+        return modelAndView;
+    }
+
+    //Show singolo corso, ancora da implementare con jsp
+    @GetMapping("/{id_corso}")
+    public ModelAndView  mostraCorso(@PathVariable("id_corso") Integer id_corso) {
+        Corso corso = corsoService.findById(id_corso);
+        ModelAndView modelAndView = new ModelAndView("show-corso");
+        modelAndView.addObject("corso", corso);
+        modelAndView.addObject("studenti", corso.getStudenti());
+        modelAndView.addObject("tuttiStudenti", studenteService.findAll());
+        return modelAndView;
+    }
+
+    //Delete corso
+    @GetMapping("{id_corso}/delete")
+    public ModelAndView delete(@PathVariable("id_corso") Integer id_corso) {
+        corsoService.delete(id_corso);
+        return new ModelAndView("redirect:/corsi/lista");
+    }
+
+    //CHIAMATE POST
+    //Salvataggio nuovo corso, usato anche per il salvataggio della modifica
     @PostMapping("/salva")
     public ModelAndView create(@ModelAttribute("corso") Corso corso,
                                BindingResult br) {
@@ -47,25 +90,48 @@ public class CorsoController {
         }
         Docente docente = docenteService.findById(corso.getDocente().getId_docente());
         corso.setDocente(docente);
+        if (corso.getId_corso() != null) {
+            Corso corsoEsistente = corsoService.findById(corso.getId_corso());
+            corso.setStudenti(corsoEsistente.getStudenti()); // 🔥 mantieni gli studenti già associati
+        }
         corsoService.save(corso);
         return new ModelAndView("redirect:/corsi/lista");
     }
 
-    @GetMapping("/{id_corso}/edit")
-    public ModelAndView showEdit(@PathVariable("id_corso") Integer id_corso) {
+    //Salvataggio studente
+    @PostMapping("/{id_corso}/aggiungiStudente")
+    public String aggiungiStudente(@PathVariable("id_corso") Integer id_corso,
+                                   @RequestParam("studenteId") Integer studenteId) {
         Corso corso = corsoService.findById(id_corso);
+        Studente studente = studenteService.findById(studenteId);
+        if (corso != null && studente != null) {
+            corso.getStudenti().add(studente);
+            studente.getCorsi().add(corso);
+            corsoService.save(corso);
+            studenteService.save(studente);
+        }
+        return "redirect:/corsi/" + id_corso + "/edit";
+    }
+
+    //Eliminazione studente nell'edit
+    @PostMapping("/{id_corso}/rimuoviStudente")
+    public ModelAndView rimuoviStudente(@PathVariable("id_corso") Integer id_corso,
+                                        @RequestParam("id_studente") Integer id_studente) {
+        Corso corso = corsoService.findById(id_corso);
+        Studente studente = studenteService.findById(id_studente);
+
+        if (corso != null && studente != null) {
+            corso.getStudenti().remove(studente);
+            studente.getCorsi().remove(corso);
+            corsoService.save(corso);
+            studenteService.save(studente);
+        }
+
         ModelAndView modelAndView = new ModelAndView("form-corso");
         modelAndView.addObject("corso", corso);
         modelAndView.addObject("docenti", docenteService.findAll());
+        modelAndView.addObject("tuttiStudenti", studenteService.findAll());
+        modelAndView.addObject("studentiIscritti", corso.getStudenti());
         return modelAndView;
     }
-
-    @GetMapping("{id_corso}/delete")
-    public ModelAndView delete(@PathVariable("id_corso") Integer id_corso) {
-        corsoService.delete(id_corso);
-        return new ModelAndView("redirect:/corsi/lista");
-    }
-
-
-
 }

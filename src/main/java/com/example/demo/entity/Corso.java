@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import javax.print.Doc;
+import java.util.Set;
 
 @Entity
 @Table(name = "corso")
@@ -61,5 +62,21 @@ public class Corso {
 
     public Docente getDocente() {
         return docente;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "corsi_studenti",
+            joinColumns = @JoinColumn(name = "id_corso"),
+            inverseJoinColumns = @JoinColumn(name = "id_studente")
+    )
+    private Set<Studente> studenti;
+
+    public Set<Studente> getStudenti() {
+        return studenti;
+    }
+
+    public void setStudenti(Set<Studente> studenti) {
+        this.studenti = studenti;
     }
 }

@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "studente")
 public class Studente {
@@ -89,6 +91,13 @@ public class Studente {
 
     public void setCittà_di_residenza(String città_di_residenza) {
         this.città_di_residenza = città_di_residenza;
+    }
+
+    @ManyToMany(mappedBy = "studenti")
+    private Set<Corso> corsi;
+
+    public Set<Corso> getCorsi() {
+        return corsi;
     }
 }
 

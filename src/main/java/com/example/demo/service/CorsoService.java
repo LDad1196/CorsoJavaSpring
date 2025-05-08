@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class CorsoService {
+
     @Autowired
     CorsoRepository corsoRepository;
 
@@ -25,4 +26,5 @@ public class CorsoService {
     }
 
     public void delete(Integer id_corso) {corsoRepository.deleteById(id_corso);}
+
 }

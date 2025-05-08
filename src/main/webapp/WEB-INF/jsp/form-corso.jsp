@@ -7,29 +7,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 </head>
-<body class="container mt-4">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/">Gestione Scuola</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="<c:url value='/studenti/lista'/>">Studenti</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/docenti/lista'/>">Docenti</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/corsi/lista'/>">Corsi</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<body>
+    <%@ include file="./components/header.jsp" %>
+
+    <main class="container mt-4">
     <h1>
         <c:choose>
             <c:when test="${corso.id_corso != null}">
@@ -40,41 +21,69 @@
             </c:otherwise>
         </c:choose>
     </h1>
-    <form:form method="post" modelAttribute="corso" action="${pageContext.request.contextPath}/corsi/salva">
+    <form:form method="post" class="mb-3" modelAttribute="corso" action="${pageContext.request.contextPath}/corsi/salva">
         <form:hidden path="id_corso"/>
 
         <div class="mb-3">
-            <label for="nome" class="form-label">Nome Corso</label>
-            <input type="text" class="form-control" id="nome" name="nome" value="${corso.nome}" required>
+            <label class="form-label">Nome Corso</label>
+            <form:input path="nome" cssClass="form-control" required="true"/>
         </div>
+
         <div class="mb-3">
-            <div class="mb-3">
-                <label for="anno_accademico" class="form-label">Anno Accademico</label>
-                <select name="anno_accademico" id="anno_accademico" class="form-select" required>
-                    <option value="">-- Seleziona un anno --</option>
-                    <option value="2023/2024" <c:if test="${corso.anno_accademico == '2023/2024'}">selected</c:if>>2023/2024</option>
-                    <option value="2024/2025" <c:if test="${corso.anno_accademico == '2024/2025'}">selected</c:if>>2024/2025</option>
-                    <option value="2025/2026" <c:if test="${corso.anno_accademico == '2025/2026'}">selected</c:if>>2025/2026</option>
-                </select>
-            </div>
+            <label class="form-label">Anno Accademico</label>
+            <form:select path="anno_accademico" cssClass="form-select" required="true">
+                <form:option value="" label="-- Seleziona un anno --"/>
+                <form:option value="2023/2024"/>
+                <form:option value="2024/2025"/>
+                <form:option value="2025/2026"/>
+            </form:select>
         </div>
+
         <div class="mb-3">
-             <label for="docente" class="form-label">Docente</label>
-             <select name="docente.id_docente" id="docente" class="form-select" required>
-                  <option value="">-- Seleziona Docente --</option>
-                  <c:forEach var="docente" items="${docenti}">
-                        <option value="${docente.id_docente}"
-                            <c:if test="${corso.docente != null and docente.id_docente == corso.docente.id_docente}">
-                                selected
-                            </c:if>>
-                            ${docente.nome} ${docente.cognome}
-                        </option>
-                  </c:forEach>
-             </select>
+            <label class="form-label">Docente</label>
+            <form:select path="docente.id_docente" cssClass="form-select" required="true">
+                <form:option value="" label="-- Seleziona Docente --"/>
+                <c:forEach var="docente" items="${docenti}">
+                    <form:option value="${docente.id_docente}">${docente.nome} ${docente.cognome}</form:option>
+                </c:forEach>
+            </form:select>
         </div>
-        <button type="submit" class="btn btn-primary">Salva</button>
+
+        <button type="submit" class="btn btn-primary">Salva Corso</button>
     </form:form>
 
+    <c:if test="${corso.id_corso != null}">
+    <h3>Studenti Iscritti</h3>
+    <ul>
+        <c:forEach var="studente" items="${studentiIscritti}">
+            <li>
+                ${studente.nome} ${studente.cognome}
+                <form method="post" action="${pageContext.request.contextPath}/corsi/${corso.id_corso}/rimuoviStudente" style="display:inline;">
+                    <input type="hidden" name="id_studente" value="${studente.id_studente}"/>
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Sicuro di voler rimuovere lo studente?')">Rimuovi</button>
+                </form>
+            </li>
+        </c:forEach>
+    </ul>
+
+    <h4>Aggiungi Studente</h4>
+    <form method="post" action="${pageContext.request.contextPath}/corsi/${corso.id_corso}/aggiungiStudente" class="row g-3">
+        <div>
+            <select name="studenteId" class="form-select" required>
+                <option value="">-- Seleziona Studente --</option>
+                <c:forEach var="studente" items="${tuttiStudenti}">
+                    <c:if test="${not studentiIscritti.contains(studente)}">
+                        <option value="${studente.id_studente}">${studente.nome} ${studente.cognome}</option>
+                    </c:if>
+                </c:forEach>
+            </select>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success">Aggiungi Studente</button>
+        </div>
+    </form>
+    </c:if>
+    </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
