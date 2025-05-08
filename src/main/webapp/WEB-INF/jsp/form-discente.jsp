@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
-    <title>Nuovo Studente</title>
+    <title>Nuovo Discente</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 </head>
@@ -13,17 +13,17 @@
     <main class="container mt-4">
         <h1>
             <c:choose>
-                <c:when test="${studente.id_studente != null}">
-                    Modifica Studente
+                <c:when test="${discente.id_discente != null}">
+                    Modifica Discente
                 </c:when>
                 <c:otherwise>
-                    Nuovo Studente
+                    Nuovo Discente
                 </c:otherwise>
             </c:choose>
         </h1>
 
-        <form:form method="post" modelAttribute="studente" action="${pageContext.request.contextPath}/studenti/salva">
-            <form:hidden path="id_studente"/>
+        <form:form method="post" modelAttribute="discente" action="${pageContext.request.contextPath}/discenti/salva">
+            <form:hidden path="id_discente"/>
 
             <div class="mb-3">
                 <label for="nome">Nome:</label>

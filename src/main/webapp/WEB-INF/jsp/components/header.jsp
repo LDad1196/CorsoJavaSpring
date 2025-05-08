@@ -15,7 +15,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="<c:url value='/studenti/lista'/>">Studenti</a>
+                        <a class="nav-link" href="<c:url value='/discenti/lista'/>">Discenti</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<c:url value='/docenti/lista'/>">Docenti</a>

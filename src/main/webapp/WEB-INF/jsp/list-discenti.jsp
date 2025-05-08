@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Elenco Studenti</title>
+    <title>Elenco Discenti</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 </head>
@@ -11,11 +11,11 @@
     <%@ include file="./components/header.jsp" %>
 
     <main class="container mt-4">
-        <h1>Elenco Studenti</h1>
+        <h1>Elenco Discenti</h1>
 
-        <a class="btn btn-primary mb-3" href="<c:url value='/studenti/nuovo'/>">Nuovo Studente</a>
+        <a class="btn btn-primary mb-3" href="<c:url value='/discenti/nuovo'/>">Nuovo Discente</a>
 
-        <form class="row g-3 mb-3" method="get" action="${pageContext.request.contextPath}/studenti/cerca">
+        <form class="row g-3 mb-3" method="get" action="${pageContext.request.contextPath}/discenti/cerca">
             <div class="col-auto">
                 <input type="text" name="nome" class="form-control" placeholder="Cerca per nome" required>
             </div>
@@ -36,19 +36,19 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="studente" items="${studenti}">
+                <c:forEach var="discente" items="${discenti}">
                     <tr>
-                        <td>${studente.id_studente}</td>
-                        <td>${studente.nome}</td>
-                        <td>${studente.cognome}</td>
-                        <td>${studente.matricola}</td>
-                        <td>${studente.età}</td>
-                        <td>${studente.città_di_residenza}</td>
+                        <td>${discente.id_discente}</td>
+                        <td>${discente.nome}</td>
+                        <td>${discente.cognome}</td>
+                        <td>${discente.matricola}</td>
+                        <td>${discente.età}</td>
+                        <td>${discente.città_di_residenza}</td>
                         <td>
-                            <a class="btn btn-sm btn-secondary" href="<c:url value='/studenti/${studente.id_studente}/edit'/>">Modifica</a>
+                            <a class="btn btn-sm btn-secondary" href="<c:url value='/discenti/${discente.id_discente}/edit'/>">Modifica</a>
                             <a class="btn btn-sm btn-danger"
-                                href="<c:url value='/studenti/${studente.id_studente}/delete'/>"
-                                onclick="return confirm('Sei sicuro di voler eliminare questo studente?')">Elimina</a>
+                                href="<c:url value='/discenti/${discente.id_discente}/delete'/>"
+                                onclick="return confirm('Sei sicuro di voler eliminare questo discente?')">Elimina</a>
                         </td>
                     </tr>
                 </c:forEach>

@@ -54,33 +54,33 @@
         </form:form>
 
         <c:if test="${corso.id_corso != null}">
-            <h3>Studenti Iscritti</h3>
+            <h3>Discenti Iscritti</h3>
             <ul>
-                <c:forEach var="studente" items="${studentiIscritti}">
+                <c:forEach var="discente" items="${discentiIscritti}">
                     <li>
-                        ${studente.nome} ${studente.cognome}
-                        <form method="post" action="${pageContext.request.contextPath}/corsi/${corso.id_corso}/rimuoviStudente" style="display:inline;">
-                            <input type="hidden" name="id_studente" value="${studente.id_studente}"/>
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Sicuro di voler rimuovere lo studente?')">Rimuovi</button>
+                        ${discente.nome} ${discente.cognome}
+                        <form method="post" action="${pageContext.request.contextPath}/corsi/${corso.id_corso}/rimuoviDiscente" style="display:inline;">
+                            <input type="hidden" name="id_discente" value="${discente.id_discente}"/>
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Sicuro di voler rimuovere lo discente?')">Rimuovi</button>
                         </form>
                     </li>
                 </c:forEach>
             </ul>
 
-            <h4>Aggiungi Studente</h4>
-            <form method="post" action="${pageContext.request.contextPath}/corsi/${corso.id_corso}/aggiungiStudente" class="row g-3">
+            <h4>Aggiungi Discente</h4>
+            <form method="post" action="${pageContext.request.contextPath}/corsi/${corso.id_corso}/aggiungiDiscente" class="row g-3">
                 <div>
-                    <select name="studenteId" class="form-select" required>
-                        <option value="">-- Seleziona Studente --</option>
-                        <c:forEach var="studente" items="${tuttiStudenti}">
-                            <c:if test="${not studentiIscritti.contains(studente)}">
-                                <option value="${studente.id_studente}">${studente.nome} ${studente.cognome}</option>
+                    <select name="discenteId" class="form-select" required>
+                        <option value="">-- Seleziona Discente --</option>
+                        <c:forEach var="discente" items="${tuttiDiscenti}">
+                            <c:if test="${not discentiIscritti.contains(discente)}">
+                                <option value="${discente.id_discente}">${discente.nome} ${discente.cognome}</option>
                             </c:if>
                         </c:forEach>
                     </select>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-success">Aggiungi Studente</button>
+                    <button type="submit" class="btn btn-success">Aggiungi Discente</button>
                 </div>
             </form>
         </c:if>

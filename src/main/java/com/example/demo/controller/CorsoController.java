@@ -2,10 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Corso;
 import com.example.demo.entity.Docente;
-import com.example.demo.entity.Studente;
+import com.example.demo.entity.Discente;
 import com.example.demo.service.CorsoService;
 import com.example.demo.service.DocenteService;
-import com.example.demo.service.StudenteService;
+import com.example.demo.service.DiscenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -24,7 +24,7 @@ public class CorsoController {
     DocenteService docenteService;
 
     @Autowired
-    StudenteService studenteService;
+    DiscenteService discenteService;
 
     //Metodi get
     //Visualizza lista
@@ -43,20 +43,20 @@ public class CorsoController {
         ModelAndView mav = new ModelAndView("form-corso"); // nome del JSP nella cartella /WEB-INF/jsp/
         mav.addObject("corso", corso);
         mav.addObject("docenti", docenteService.findAll());
-        mav.addObject("tuttiStudenti", studenteService.findAll());
-        mav.addObject("studentiIscritti", corso.getStudenti());
+        mav.addObject("tuttiDiscenti", discenteService.findAll());
+        mav.addObject("discentiIscritti", corso.getDiscenti());
         return mav;
     }
 
-    //Chiamata form di modifica del corso, con modifica studenti
+    //Chiamata form di modifica del corso, con modifica discenti
     @GetMapping("/{id_corso}/edit")
     public ModelAndView showEdit(@PathVariable("id_corso") Integer id_corso) {
         Corso corso = corsoService.findById(id_corso);
         ModelAndView modelAndView = new ModelAndView("form-corso");
         modelAndView.addObject("corso", corso);
         modelAndView.addObject("docenti", docenteService.findAll());
-        modelAndView.addObject("tuttiStudenti", studenteService.findAll());
-        modelAndView.addObject("studentiIscritti", corso.getStudenti());
+        modelAndView.addObject("tuttiDiscenti", discenteService.findAll());
+        modelAndView.addObject("discentiIscritti", corso.getDiscenti());
         return modelAndView;
     }
 
@@ -66,8 +66,8 @@ public class CorsoController {
         Corso corso = corsoService.findById(id_corso);
         ModelAndView modelAndView = new ModelAndView("show-corso");
         modelAndView.addObject("corso", corso);
-        modelAndView.addObject("studenti", corso.getStudenti());
-        modelAndView.addObject("tuttiStudenti", studenteService.findAll());
+        modelAndView.addObject("discenti", corso.getDiscenti());
+        modelAndView.addObject("tuttiDiscenti", discenteService.findAll());
         return modelAndView;
     }
 
@@ -92,46 +92,46 @@ public class CorsoController {
         corso.setDocente(docente);
         if (corso.getId_corso() != null) {
             Corso corsoEsistente = corsoService.findById(corso.getId_corso());
-            corso.setStudenti(corsoEsistente.getStudenti()); // 🔥 mantieni gli studenti già associati
+            corso.setDiscenti(corsoEsistente.getDiscenti()); // 🔥 mantieni gli discenti già associati
         }
         corsoService.save(corso);
         return new ModelAndView("redirect:/corsi/lista");
     }
 
-    //Salvataggio studente
-    @PostMapping("/{id_corso}/aggiungiStudente")
-    public String aggiungiStudente(@PathVariable("id_corso") Integer id_corso,
-                                   @RequestParam("studenteId") Integer studenteId) {
+    //Salvataggio discente
+    @PostMapping("/{id_corso}/aggiungiDiscente")
+    public String aggiungiDiscente(@PathVariable("id_corso") Integer id_corso,
+                                   @RequestParam("discenteId") Integer discenteId) {
         Corso corso = corsoService.findById(id_corso);
-        Studente studente = studenteService.findById(studenteId);
-        if (corso != null && studente != null) {
-            corso.getStudenti().add(studente);
-            studente.getCorsi().add(corso);
+        Discente discente = discenteService.findById(discenteId);
+        if (corso != null && discente != null) {
+            corso.getDiscenti().add(discente);
+            discente.getCorsi().add(corso);
             corsoService.save(corso);
-            studenteService.save(studente);
+            discenteService.save(discente);
         }
         return "redirect:/corsi/" + id_corso + "/edit";
     }
 
-    //Eliminazione studente nell'edit
-    @PostMapping("/{id_corso}/rimuoviStudente")
-    public ModelAndView rimuoviStudente(@PathVariable("id_corso") Integer id_corso,
-                                        @RequestParam("id_studente") Integer id_studente) {
+    //Eliminazione discente nell'edit
+    @PostMapping("/{id_corso}/rimuoviDiscente")
+    public ModelAndView rimuoviDiscente(@PathVariable("id_corso") Integer id_corso,
+                                        @RequestParam("id_discente") Integer id_discente) {
         Corso corso = corsoService.findById(id_corso);
-        Studente studente = studenteService.findById(id_studente);
+        Discente discente = discenteService.findById(id_discente);
 
-        if (corso != null && studente != null) {
-            corso.getStudenti().remove(studente);
-            studente.getCorsi().remove(corso);
+        if (corso != null && discente != null) {
+            corso.getDiscenti().remove(discente);
+            discente.getCorsi().remove(corso);
             corsoService.save(corso);
-            studenteService.save(studente);
+            discenteService.save(discente);
         }
 
         ModelAndView modelAndView = new ModelAndView("form-corso");
         modelAndView.addObject("corso", corso);
         modelAndView.addObject("docenti", docenteService.findAll());
-        modelAndView.addObject("tuttiStudenti", studenteService.findAll());
-        modelAndView.addObject("studentiIscritti", corso.getStudenti());
+        modelAndView.addObject("tuttiDiscenti", discenteService.findAll());
+        modelAndView.addObject("discentiIscritti", corso.getDiscenti());
         return modelAndView;
     }
 }

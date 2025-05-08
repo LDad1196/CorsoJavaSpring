@@ -7,12 +7,12 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
-@Table(name = "studente")
-public class Studente {
+@Table(name = "discente")
+public class Discente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_studente;
+    private Integer id_discente;
 
     @Column(nullable = false)
     @NotBlank(message = "Inserisci il nome")
@@ -34,9 +34,9 @@ public class Studente {
     @NotBlank(message = "Inserisci la città di residenza")
     private String città_di_residenza;
 
-    public Studente() {}
+    public Discente() {}
 
-    public Studente(String nome, String cognome, Integer matricola, Integer età, String città_di_residenza) {
+    public Discente(String nome, String cognome, Integer matricola, Integer età, String città_di_residenza) {
         this.nome = nome;
         this.cognome = cognome;
         this.matricola = matricola;
@@ -44,8 +44,8 @@ public class Studente {
         this.città_di_residenza = città_di_residenza;
     }
 
-    public Integer getId_studente() {
-        return id_studente;
+    public Integer getId_discente() {
+        return id_discente;
     }
 
     public String getNome() {
@@ -68,8 +68,8 @@ public class Studente {
         return città_di_residenza;
     }
 
-    public void setId_studente(Integer id_studente) {
-        this.id_studente = id_studente;
+    public void setId_discente(Integer id_discente) {
+        this.id_discente = id_discente;
     }
 
     public void setNome(String nome) {
@@ -92,7 +92,7 @@ public class Studente {
         this.città_di_residenza = città_di_residenza;
     }
 
-    @ManyToMany(mappedBy = "studenti")
+    @ManyToMany(mappedBy = "discenti")
     private Set<Corso> corsi;
 
     public Set<Corso> getCorsi() {

@@ -66,17 +66,17 @@ public class Corso {
 
     @ManyToMany
     @JoinTable(
-            name = "corsi_studenti",
+            name = "corsi_discenti",
             joinColumns = @JoinColumn(name = "id_corso"),
-            inverseJoinColumns = @JoinColumn(name = "id_studente")
+            inverseJoinColumns = @JoinColumn(name = "id_discente")
     )
-    private Set<Studente> studenti;
+    private Set<Discente> discenti;
 
-    public Set<Studente> getStudenti() {
-        return studenti;
+    public Set<Discente> getDiscenti() {
+        return discenti;
     }
 
-    public void setStudenti(Set<Studente> studenti) {
-        this.studenti = studenti;
+    public void setDiscenti(Set<Discente> discenti) {
+        this.discenti = discenti;
     }
 }

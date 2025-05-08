@@ -19,7 +19,7 @@
                     <th>Nome</th>
                     <th>Anno Accademico</th>
                     <th>Docente</th>
-                    <th>Studenti Iscritti</th>
+                    <th>Discenti Iscritti</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,8 +34,8 @@
                             </c:if>
                         </td>
                         <td>
-                            <c:forEach var="studente" items="${corso.studenti}">
-                                ${studente.nome} ${studente.cognome}<br/>
+                            <c:forEach var="discente" items="${corso.discenti}">
+                                ${discente.nome} ${discente.cognome}<br/>
                             </c:forEach>
                         </td>
                         <td>
