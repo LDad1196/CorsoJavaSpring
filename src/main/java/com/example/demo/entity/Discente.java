@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -93,7 +94,7 @@ public class Discente {
     }
 
     @ManyToMany(mappedBy = "discenti")
-    private Set<Corso> corsi;
+    private Set<Corso> corsi = new HashSet<>();
 
     public Set<Corso> getCorsi() {
         return corsi;

@@ -55,7 +55,7 @@ public class DiscenteController {
 
     @GetMapping("/{id_discente}/delete")
     public ModelAndView delete(@PathVariable("id_discente") Integer id_discente) {
-        discenteService.delete(id_discente);
+        discenteService.deleteByIdConRimozioneDaCorsi(id_discente);
         return new ModelAndView("redirect:/discenti/lista");
     }
 

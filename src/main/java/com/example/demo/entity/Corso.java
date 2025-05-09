@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import javax.print.Doc;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -70,7 +71,7 @@ public class Corso {
             joinColumns = @JoinColumn(name = "id_corso"),
             inverseJoinColumns = @JoinColumn(name = "id_discente")
     )
-    private Set<Discente> discenti;
+    private Set<Discente> discenti = new HashSet<>();
 
     public Set<Discente> getDiscenti() {
         return discenti;

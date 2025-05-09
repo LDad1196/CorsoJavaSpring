@@ -34,9 +34,11 @@
                             </c:if>
                         </td>
                         <td>
+                            <ul>
                             <c:forEach var="discente" items="${corso.discenti}">
-                                ${discente.nome} ${discente.cognome}<br/>
+                                <li>${discente.nome} ${discente.cognome}</li>
                             </c:forEach>
+                            </ul>
                         </td>
                         <td>
                             <a class="btn btn-sm btn-secondary" href="<c:url value='/corsi/${corso.id_corso}/edit'/>">Modifica</a>
