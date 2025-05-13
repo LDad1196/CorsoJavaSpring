@@ -32,6 +32,9 @@
                             <c:if test="${corso.docente != null}">
                                 ${corso.docente.nome} ${corso.docente.cognome}
                             </c:if>
+                            <c:if test="${corso.docente == null}">
+                                <em>-- Nessun docente --</em>
+                            </c:if>
                         </td>
                         <td>
                             <ul>
