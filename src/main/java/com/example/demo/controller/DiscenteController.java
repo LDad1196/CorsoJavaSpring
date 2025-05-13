@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Discente;
+import com.example.demo.data.entity.Discente;
 import com.example.demo.service.DiscenteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Corso;
-import com.example.demo.entity.Docente;
-import com.example.demo.entity.Discente;
+import com.example.demo.data.entity.Corso;
+import com.example.demo.data.entity.Docente;
+import com.example.demo.data.entity.Discente;
 import com.example.demo.service.CorsoService;
 import com.example.demo.service.DocenteService;
 import com.example.demo.service.DiscenteService;
@@ -92,7 +92,7 @@ public class CorsoController {
         corso.setDocente(docente);
         if (corso.getId_corso() != null) {
             Corso corsoEsistente = corsoService.findById(corso.getId_corso());
-            corso.setDiscenti(corsoEsistente.getDiscenti()); // 🔥 mantieni gli discenti già associati
+            corso.setDiscenti(corsoEsistente.getDiscenti());
         }
         corsoService.save(corso);
         return new ModelAndView("redirect:/corsi/lista");
@@ -107,7 +107,7 @@ public class CorsoController {
         if (corso != null && discente != null) {
             corso.getDiscenti().add(discente);
             discente.getCorsi().add(corso);
-            corsoService.save(corso);
+            //corsoService.save(corso);
             discenteService.save(discente);
         }
         return "redirect:/corsi/" + id_corso + "/edit";
@@ -123,7 +123,7 @@ public class CorsoController {
         if (corso != null && discente != null) {
             corso.getDiscenti().remove(discente);
             discente.getCorsi().remove(corso);
-            corsoService.save(corso);
+            //corsoService.save(corso);
             discenteService.save(discente);
         }
 

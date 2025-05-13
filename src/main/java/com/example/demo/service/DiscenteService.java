@@ -1,10 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Corso;
-import com.example.demo.entity.Discente;
+import com.example.demo.data.entity.Corso;
+import com.example.demo.data.entity.Discente;
 import com.example.demo.repository.CorsoRepository;
 import com.example.demo.repository.DiscenteRepository;
-import org.hibernate.id.IntegralDataTypeHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

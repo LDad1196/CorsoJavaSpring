@@ -1,9 +1,8 @@
-package com.example.demo.entity;
+package com.example.demo.data.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
-import javax.print.Doc;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -73,11 +72,12 @@ public class Corso {
     )
     private Set<Discente> discenti = new HashSet<>();
 
+    public void setDiscenti(Set<Discente> discenti) {
+        this.discenti = discenti;
+    }
+
     public Set<Discente> getDiscenti() {
         return discenti;
     }
 
-    public void setDiscenti(Set<Discente> discenti) {
-        this.discenti = discenti;
-    }
 }

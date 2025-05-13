@@ -1,7 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Corso;
-import com.example.demo.entity.Docente;
+import com.example.demo.converter.DocenteConverter;
+import com.example.demo.data.entity.Docente;
+import com.example.demo.data.entity.Corso;
 import com.example.demo.repository.CorsoRepository;
 import com.example.demo.repository.DocenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class DocenteService {
 
     @Autowired
     DocenteRepository docenteRepository;
+
+    @Autowired
+    DocenteConverter docenteConverter;
 
     @Autowired
     CorsoRepository corsoRepository;
