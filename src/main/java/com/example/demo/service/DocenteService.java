@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.converter.DocenteConverter;
+import com.example.demo.data.DTO.DocenteCompletoDTO;
 import com.example.demo.data.DTO.DocenteDTO;
 import com.example.demo.data.entity.Docente;
 import com.example.demo.data.entity.Corso;
@@ -25,23 +26,21 @@ public class DocenteService {
     @Autowired
     CorsoRepository corsoRepository;
 
-    public List<DocenteDTO> findAll() {
+    public List<DocenteDTO> findAllSintetico() {
         return docenteRepository.findAll()
                 .stream()
                 .map(docenteConverter::toDto)
                 .toList();
     }
 
-    public DocenteDTO findById(Integer id_docente) {
+    public DocenteCompletoDTO findByIdCompleto(Integer id_docente) {
         return docenteRepository.findById(id_docente)
-                .map(docenteConverter::toDto)
+                .map(docenteConverter::toCompletoDto)
                 .orElse(null);
     }
 
-    public DocenteDTO save(DocenteDTO dto) {
-        Docente entity = docenteConverter.toEntity(dto);
-        Docente saved = docenteRepository.save(entity);
-        return docenteConverter.toDto(saved);
+    public void save(DocenteCompletoDTO dto) {
+        docenteRepository.save(docenteConverter.toEntity(dto));
     }
 
     public List<DocenteDTO> cercaPerNome(String nome) {
@@ -52,7 +51,7 @@ public class DocenteService {
     }
 
     public Map<Integer, String> getMappaDocenti() {
-        return findAll().stream()
+        return findAllSintetico().stream()
                 .collect(Collectors.toMap(
                         DocenteDTO::getId_docente,
                         d -> d.getNome() + " " + d.getCognome()

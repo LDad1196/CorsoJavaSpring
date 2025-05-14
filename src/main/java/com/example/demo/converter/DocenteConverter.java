@@ -1,5 +1,6 @@
 package com.example.demo.converter;
 
+import com.example.demo.data.DTO.DocenteCompletoDTO;
 import com.example.demo.data.DTO.DocenteDTO;
 import com.example.demo.data.entity.Docente;
 import org.springframework.stereotype.Component;
@@ -13,11 +14,20 @@ public class DocenteConverter {
         dto.setId_docente(docente.getId_docente());
         dto.setNome(docente.getNome());
         dto.setCognome(docente.getCognome());
+        return dto;
+    }
+
+    public DocenteCompletoDTO toCompletoDto(Docente docente) {
+        if (docente == null) return null;
+        DocenteCompletoDTO dto = new DocenteCompletoDTO();
+        dto.setId_docente(docente.getId_docente());
+        dto.setNome(docente.getNome());
+        dto.setCognome(docente.getCognome());
         dto.setData_di_nascita(docente.getData_di_nascita());
         return dto;
     }
 
-    public Docente toEntity(DocenteDTO dto) {
+    public Docente toEntity(DocenteCompletoDTO dto) {
         if (dto == null) return null;
         Docente docente = new Docente();
         docente.setId_docente(dto.getId_docente());

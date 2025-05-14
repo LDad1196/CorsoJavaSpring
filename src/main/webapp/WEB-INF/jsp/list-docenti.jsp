@@ -23,20 +23,16 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nome</th>
                     <th>Cognome</th>
-                    <th>Data di nascita</th>
                     <th>Azioni</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="docente" items="${docenti}">
                     <tr>
-                        <td>${docente.id_docente}</td>
                         <td>${docente.nome}</td>
                         <td>${docente.cognome}</td>
-                        <td>${docente.data_di_nascita}</td>
                         <td>
                             <a class="btn btn-sm btn-secondary" href="<c:url value='/docenti/${docente.id_docente}/edit'/>">Modifica</a>
                             <a class="btn btn-sm btn-danger"

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.data.DTO.DocenteCompletoDTO;
 import com.example.demo.data.DTO.DocenteDTO;
 import com.example.demo.service.DocenteService;
 import jakarta.validation.Valid;
@@ -20,7 +21,7 @@ public class DocenteController {
     // LISTA
     @GetMapping("/lista")
     public String list(Model model) {
-        List<DocenteDTO> docenti = docenteService.findAll();
+        List<DocenteDTO> docenti = docenteService.findAllSintetico();
         model.addAttribute("docenti", docenti);
         return "list-docenti";
     }
@@ -28,13 +29,13 @@ public class DocenteController {
     // FORM NUOVO
     @GetMapping("/nuovo")
     public String showAdd(Model model) {
-        model.addAttribute("docente", new DocenteDTO());
+        model.addAttribute("docente", new DocenteCompletoDTO());
         return "form-docente";
     }
 
     // SALVA
     @PostMapping("/salva")
-    public String create(@Valid @ModelAttribute("docente") DocenteDTO docenteDTO,
+    public String create(@Valid @ModelAttribute("docente") DocenteCompletoDTO docenteDTO,
                          BindingResult br) {
         if (br.hasErrors()) return "form-docente";
         docenteService.save(docenteDTO);
@@ -44,7 +45,7 @@ public class DocenteController {
     // FORM EDIT
     @GetMapping("/{id_docente}/edit")
     public String showEdit(@PathVariable("id_docente") Integer id_docente, Model model) {
-        DocenteDTO docenteDTO = docenteService.findById(id_docente);
+        DocenteCompletoDTO docenteDTO = docenteService.findByIdCompleto(id_docente);
         model.addAttribute("docente", docenteDTO);
         return "form-docente";
     }

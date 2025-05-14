@@ -1,10 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.data.DTO.CorsoDTO;
-import com.example.demo.data.DTO.DocenteDTO;
-import com.example.demo.data.entity.Corso;
-import com.example.demo.data.entity.Docente;
-import com.example.demo.data.entity.Discente;
 import com.example.demo.service.CorsoService;
 import com.example.demo.service.DocenteService;
 import com.example.demo.service.DiscenteService;
@@ -44,7 +40,7 @@ public class CorsoController {
     public ModelAndView mostraFormNuovoCorso() {
         ModelAndView modelAndView = new ModelAndView("form-corso"); // nome del JSP nella cartella /WEB-INF/jsp/
         modelAndView.addObject("corso", new CorsoDTO());
-        modelAndView.addObject("docenti", docenteService.findAll());
+        modelAndView.addObject("docenti", docenteService.findAllSintetico());
         modelAndView.addObject("discenti", discenteService.findAll());
         return modelAndView;
     }
@@ -55,7 +51,7 @@ public class CorsoController {
         CorsoDTO corso = corsoService.findById(id_corso);
         ModelAndView modelAndView = new ModelAndView("form-corso");
         modelAndView.addObject("corso", corso);
-        modelAndView.addObject("docenti", docenteService.findAll());
+        modelAndView.addObject("docenti", docenteService.findAllSintetico());
         modelAndView.addObject("discenti", discenteService.findAll());
         return modelAndView;
     }
@@ -75,7 +71,7 @@ public class CorsoController {
         if (br.hasErrors()) {
             ModelAndView modelAndView = new ModelAndView("form-corso");
             modelAndView.addObject("corso", corsoDTO);
-            modelAndView.addObject("docenti", docenteService.findAll());
+            modelAndView.addObject("docenti", docenteService.findAllSintetico());
             modelAndView.addObject("discenti", discenteService.findAll());
             return modelAndView;
         }
