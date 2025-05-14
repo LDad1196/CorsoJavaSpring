@@ -44,15 +44,15 @@
             </div>
 
             <div class="mb-3">
-                 <label for="età">Età:</label>
-                 <form:input path="età" id="età" cssClass="form-control"/>
-                 <form:errors path="età" cssClass="text-danger"/>
+                 <label for="eta">Età:</label>
+                 <form:input path="eta" id="eta" cssClass="form-control"/>
+                 <form:errors path="eta" cssClass="text-danger"/>
             </div>
 
             <div class="mb-3">
-                  <label for="città_di_residenza">Città di residenza:</label>
-                  <form:input path="città_di_residenza" id="città_di_residenza" cssClass="form-control"/>
-                  <form:errors path="città_di_residenza" cssClass="text-danger"/>
+                  <label for="citta">Città di residenza:</label>
+                  <form:input path="citta" id="citta" cssClass="form-control"/>
+                  <form:errors path="citta" cssClass="text-danger"/>
             </div>
 
             <button type="submit" class="btn btn-primary">Salva</button>

@@ -20,8 +20,8 @@
             <th>ID</th>
             <th>Nome</th>
             <th>Anno Accademico</th>
-            <th>ID Docente</th>
-            <th>Discenti Iscritti (ID)</th>
+            <th>Docente</th>
+            <th>Discenti Iscritti</th>
             <th>Azioni</th>
         </tr>
         </thead>

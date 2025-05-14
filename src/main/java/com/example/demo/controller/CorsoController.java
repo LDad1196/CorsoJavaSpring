@@ -45,7 +45,7 @@ public class CorsoController {
         ModelAndView modelAndView = new ModelAndView("form-corso"); // nome del JSP nella cartella /WEB-INF/jsp/
         modelAndView.addObject("corso", new CorsoDTO());
         modelAndView.addObject("docenti", docenteService.findAll());
-        modelAndView.addObject("tuttiDiscenti", discenteService.findAll());
+        modelAndView.addObject("discenti", discenteService.findAll());
         return modelAndView;
     }
 
