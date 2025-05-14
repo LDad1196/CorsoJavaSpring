@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.converter.DocenteConverter;
+import com.example.demo.data.DTO.DocenteDTO;
 import com.example.demo.data.entity.Docente;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.repository.CorsoRepository;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class DocenteService {
@@ -22,28 +25,43 @@ public class DocenteService {
     @Autowired
     CorsoRepository corsoRepository;
 
-    public List<Docente> findAll() {
-        return docenteRepository.findAll();
+    public List<DocenteDTO> findAll() {
+        return docenteRepository.findAll()
+                .stream()
+                .map(docenteConverter::toDto)
+                .toList();
     }
 
-    public Docente findById(Integer id_docente) {
-        return docenteRepository.findById(id_docente).orElse(null);
+    public DocenteDTO findById(Integer id_docente) {
+        return docenteRepository.findById(id_docente)
+                .map(docenteConverter::toDto)
+                .orElse(null);
     }
 
-    public Docente save(Docente docente) {
-        return docenteRepository.save(docente);
+    public DocenteDTO save(DocenteDTO dto) {
+        Docente entity = docenteConverter.toEntity(dto);
+        Docente saved = docenteRepository.save(entity);
+        return docenteConverter.toDto(saved);
     }
 
-    public void delete(Integer id_docente) {
-        docenteRepository.deleteById(id_docente);
+    public List<DocenteDTO> cercaPerNome(String nome) {
+        return docenteRepository.cercaPerNome(nome)
+                .stream()
+                .map(docenteConverter::toDto)
+                .toList();
     }
 
-    public List<Docente> cercaPerNome(String nome) {
-        return docenteRepository.cercaPerNome(nome);
+    public Map<Integer, String> getMappaDocenti() {
+        return findAll().stream()
+                .collect(Collectors.toMap(
+                        DocenteDTO::getId_docente,
+                        d -> d.getNome() + " " + d.getCognome()
+                ));
     }
 
     public void deleteById(Integer id_docente) {
-        Docente docente = docenteRepository.findById(id_docente).orElseThrow(() -> new IllegalArgumentException("Docente non trovato"));
+        Docente docente = docenteRepository.findById(id_docente)
+                .orElseThrow(() -> new IllegalArgumentException("Docente non trovato"));
         for (Corso corso : docente.getCorsi()) {
             corso.setDocente(null);
             corsoRepository.save(corso);

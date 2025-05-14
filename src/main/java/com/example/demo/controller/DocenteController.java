@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.data.entity.Docente;
+import com.example.demo.data.DTO.DocenteDTO;
 import com.example.demo.service.DocenteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -16,13 +15,12 @@ import java.util.List;
 public class DocenteController {
 
     @Autowired
-    DocenteService docenteService;
+    private DocenteService docenteService;
 
     // LISTA
     @GetMapping("/lista")
     public String list(Model model) {
-        List<Docente> docenti = new ArrayList<>();
-        docenti = docenteService.findAll();
+        List<DocenteDTO> docenti = docenteService.findAll();
         model.addAttribute("docenti", docenti);
         return "list-docenti";
     }
@@ -30,24 +28,24 @@ public class DocenteController {
     // FORM NUOVO
     @GetMapping("/nuovo")
     public String showAdd(Model model) {
-        model.addAttribute("docente", new Docente());
+        model.addAttribute("docente", new DocenteDTO());
         return "form-docente";
     }
 
     // SALVA
     @PostMapping("/salva")
-    public String create(@Valid @ModelAttribute("docente") Docente docente,
+    public String create(@Valid @ModelAttribute("docente") DocenteDTO docenteDTO,
                          BindingResult br) {
         if (br.hasErrors()) return "form-docente";
-        docenteService.save(docente);
+        docenteService.save(docenteDTO);
         return "redirect:/docenti/lista";
     }
 
     // FORM EDIT
     @GetMapping("/{id_docente}/edit")
     public String showEdit(@PathVariable("id_docente") Integer id_docente, Model model) {
-        Docente docente = docenteService.findById(id_docente);
-        model.addAttribute("docente", docente);
+        DocenteDTO docenteDTO = docenteService.findById(id_docente);
+        model.addAttribute("docente", docenteDTO);
         return "form-docente";
     }
 
@@ -58,11 +56,13 @@ public class DocenteController {
         return "redirect:/docenti/lista";
     }
 
+    // CERCA
     @GetMapping("/cerca")
     public String cerca(@RequestParam("nome") String nome, Model model) {
-        List<Docente> risultati = docenteService.cercaPerNome(nome);
+        List<DocenteDTO> risultati = docenteService.cercaPerNome(nome);
         model.addAttribute("docenti", risultati);
         return "list-docenti";
     }
 }
+
 

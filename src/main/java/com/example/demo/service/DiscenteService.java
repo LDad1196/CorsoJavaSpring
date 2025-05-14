@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.converter.DiscenteConverter;
+import com.example.demo.data.DTO.DiscenteDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Discente;
 import com.example.demo.repository.CorsoRepository;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class DiscenteService {
@@ -17,30 +21,49 @@ public class DiscenteService {
     DiscenteRepository discenteRepository;
 
     @Autowired
+    DiscenteConverter discenteConverter;
+
+    @Autowired
     CorsoRepository corsoRepository;
 
-    public List<Discente> findAll() {
-        return discenteRepository.findAll();
+    public List<DiscenteDTO> findAll() {
+        return discenteRepository.findAll()
+                .stream()
+                .map(discenteConverter::toDto)
+                .toList();
     }
 
-    public Discente findById(Integer id_discente) {
-        return discenteRepository.findById(id_discente).orElse(null);
+    public DiscenteDTO findById(Integer id_discente) {
+        return discenteRepository.findById(id_discente)
+                .map(discenteConverter::toDto)
+                .orElse(null);
     }
 
-    public Discente save(Discente discente) {
-        return discenteRepository.save(discente);
+    public DiscenteDTO save(DiscenteDTO dto) {
+        Discente entity = discenteConverter.toEntity(dto);
+        Discente saved = discenteRepository.save(entity);
+        return discenteConverter.toDto(saved);
     }
 
-    public void delete(Integer id_discente) {
-        discenteRepository.deleteById(id_discente);
+    public List<DiscenteDTO> cercaPerNome(String nome) {
+        return discenteRepository.cercaPerNome(nome)
+                .stream()
+                .map(discenteConverter::toDto)
+                .toList();
     }
 
-    public List<Discente> cercaPerNome(String nome) {
-        return discenteRepository.cercaPerNome(nome);
+    public Map<Integer, String> getMappaDiscenti() {
+        return findAll().stream()
+                .collect(Collectors.toMap(
+                        DiscenteDTO::getId_discente,
+                        d -> d.getNome() + " " + d.getCognome()
+                ));
     }
+
 
     public void deleteByIdConRimozioneDaCorsi(Integer id_discente) {
-        Discente discente = discenteRepository.findById(id_discente).orElseThrow(() -> new IllegalCallerException("ID discente non valido: " + id_discente));
+        Discente discente = discenteRepository.findById(id_discente)
+                .orElseThrow(() -> new IllegalCallerException("ID discente non valido: " + id_discente));
         for (Corso corso : new HashSet<>(discente.getCorsi())) {
             corso.getDiscenti().remove(discente);
             corsoRepository.save(corso);

@@ -20,15 +20,10 @@ public class DocenteConverter {
     public Docente toEntity(DocenteDTO dto) {
         if (dto == null) return null;
         Docente docente = new Docente();
+        docente.setId_docente(dto.getId_docente());
         docente.setNome(dto.getNome());
         docente.setCognome(dto.getCognome());
         docente.setData_di_nascita(dto.getData_di_nascita());
         return docente;
-    }
-
-    public void updateEntity(DocenteDTO dto, Docente docente)  {
-        docente.setNome(dto.getNome());
-        docente.setCognome(dto.getCognome());
-        docente.setData_di_nascita(dto.getData_di_nascita());
     }
 }

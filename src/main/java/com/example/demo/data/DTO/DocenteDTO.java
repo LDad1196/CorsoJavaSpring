@@ -12,6 +12,9 @@ public class DocenteDTO {
     @NotBlank
     private String cognome;
 
+    @NotBlank
+    private String data_di_nascita;
+
     public Integer getId_docente() {
         return id_docente;
     }
@@ -34,6 +37,14 @@ public class DocenteDTO {
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
+    }
+
+    public String getData_di_nascita() {
+        return data_di_nascita;
+    }
+
+    public void setData_di_nascita(String data_di_nascita) {
+        this.data_di_nascita = data_di_nascita;
     }
 
 }
