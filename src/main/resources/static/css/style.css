@@ -1,0 +1,104 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Titolo */
+h1 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.5rem;
+}
+
+/* Tabella */
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #3498db;
+    color: white;
+}
+
+.table thead th {
+    border-bottom: none;
+    font-weight: 600;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f9ff;
+    transition: background-color 0.2s ease;
+}
+
+/* Badge per i discenti */
+.badge.text-bg-secondary {
+    background-color: #34495e !important;
+    font-size: 0.85em;
+    padding: 0.5em 0.7em;
+}
+
+/* Pulsanti */
+.btn-primary {
+    background-color: #3498db;
+    border: none;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+    border: none;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    border: none;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    margin: 0 0.2rem;
+}
+
+/* Effetti hover per i pulsanti */
+.btn:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Stile per il testo "Nessun docente" */
+em {
+    color: #95a5a6;
+    font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    main {
+        padding: 1rem;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .btn-sm {
+        display: block;
+        margin: 0.2rem 0;
+        width: 100%;
+    }
+}
