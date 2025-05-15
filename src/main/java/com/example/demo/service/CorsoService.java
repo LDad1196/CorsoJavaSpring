@@ -51,9 +51,7 @@ public class CorsoService {
         } else {
             corso = new Corso();
         }
-
         Docente docente = docenteRepository.findById(dto.getId_docente()).orElseThrow();
-
         Set<Discente> discenti = new HashSet<>();
         for (Integer id_discente : dto.getId_discenti()) {
             discenteRepository.findById(id_discente).ifPresent(discenti::add);

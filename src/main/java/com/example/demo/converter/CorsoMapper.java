@@ -4,31 +4,42 @@ import com.example.demo.data.dto.CorsoDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Discente;
 import com.example.demo.data.entity.Docente;
-import org.mapstruct.*;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
-public abstract class CorsoMapper {
+@Component
+public class CorsoMapper {
 
-    @Mapping(source = "docente.id_docente", target = "id_docente")
-    @Mapping(target = "id_discenti", expression = "java(extractId_discenti(corso))")
-    public abstract CorsoDTO toDto(Corso corso);
+    @Autowired
+    private ModelMapper modelMapper;
 
-    @Mapping(target = "docente", ignore = true)
-    @Mapping(target = "discenti", ignore = true)
-    public abstract Corso toEntity(CorsoDTO dto);
-
-    protected Set<Integer> extractId_discenti(Corso corso) {
-        Set<Integer> ids = new HashSet<>();
-        for (Discente discente : corso.getDiscenti()) {
-            ids.add(discente.getId_discente());
+    public CorsoDTO toDto(Corso corso) {
+        CorsoDTO dto = modelMapper.map(corso, CorsoDTO.class);
+        if (corso.getDocente() != null) {
+            dto.setId_docente(corso.getDocente().getId_docente());
         }
-        return ids;
+        if (corso.getDiscenti() != null) {
+            Set<Integer> ids = corso.getDiscenti()
+                    .stream()
+                    .map(Discente::getId_discente)
+                    .collect(Collectors.toSet());
+            dto.setId_discenti(ids);
+        }
+        return dto;
     }
 
-    public void updateEntityToDto(CorsoDTO dto, @MappingTarget Corso corso,
+    //Attualmente inutilizzato, perchè non inserisce discenti e docenti
+    public Corso toEntity(CorsoDTO dto) {
+        return modelMapper.map(dto, Corso.class);
+    }
+
+    //Salvataggio toEntity fixato per discenti e docenti
+    public void updateEntityToDto(CorsoDTO dto, Corso corso,
                                   Docente docente, Set<Discente> discenti) {
         corso.setNome(dto.getNome());
         corso.setAnno_accademico(dto.getAnno_accademico());
