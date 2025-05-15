@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.converter.DiscenteConverter;
-import com.example.demo.data.DTO.DiscenteCompletoDTO;
-import com.example.demo.data.DTO.DiscenteDTO;
+import com.example.demo.data.dto.DiscenteCompletoDTO;
+import com.example.demo.data.dto.DiscenteDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Discente;
 import com.example.demo.repository.CorsoRepository;

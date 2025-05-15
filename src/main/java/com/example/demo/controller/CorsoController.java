@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.data.DTO.CorsoDTO;
+import com.example.demo.data.dto.CorsoDTO;
 import com.example.demo.service.CorsoService;
 import com.example.demo.service.DocenteService;
 import com.example.demo.service.DiscenteService;

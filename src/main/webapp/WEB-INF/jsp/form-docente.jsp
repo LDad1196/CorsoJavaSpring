@@ -40,7 +40,7 @@
 
         <div class="mb-3">
             <label for="data_di_nascita" class="form-label">Data di Nascita</label>
-            <form:input path="data_di_nascita" cssClass="form-control" id="data_di_nascita" required="true"/>
+            <form:input path="data_di_nascita"  type="date" cssClass="form-control" id="data_di_nascita" required="true"/>
             <form:errors path="data_di_nascita" cssClass="text-danger"/>
         </div>
 

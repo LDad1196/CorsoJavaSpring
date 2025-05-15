@@ -1,10 +1,10 @@
-package com.example.demo.data.DTO;
+package com.example.demo.data.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class DocenteDTO {
+public class DiscenteDTO {
 
-    private Integer id_docente;
+    private Integer id_discente;
 
     @NotBlank
     private String nome;
@@ -12,12 +12,12 @@ public class DocenteDTO {
     @NotBlank
     private String cognome;
 
-    public Integer getId_docente() {
-        return id_docente;
+    public Integer getId_discente() {
+        return id_discente;
     }
 
-    public void setId_docente(Integer id_docente) {
-        this.id_docente = id_docente;
+    public void setId_discente(Integer id_discente) {
+        this.id_discente = id_discente;
     }
 
     public String getNome() {
@@ -35,6 +35,5 @@ public class DocenteDTO {
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
-
 
 }

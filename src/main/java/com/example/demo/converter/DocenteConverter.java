@@ -1,12 +1,17 @@
 package com.example.demo.converter;
 
-import com.example.demo.data.DTO.DocenteCompletoDTO;
-import com.example.demo.data.DTO.DocenteDTO;
+import com.example.demo.data.dto.DocenteCompletoDTO;
+import com.example.demo.data.dto.DocenteDTO;
 import com.example.demo.data.entity.Docente;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DocenteConverter {
+
+    @Autowired
+    ModelMapper modelMapper;
 
     public DocenteDTO toDto(Docente docente) {
         if (docente == null) return null;

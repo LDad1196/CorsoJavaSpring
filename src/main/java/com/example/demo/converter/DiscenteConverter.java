@@ -1,7 +1,7 @@
 package com.example.demo.converter;
 
-import com.example.demo.data.DTO.DiscenteCompletoDTO;
-import com.example.demo.data.DTO.DiscenteDTO;
+import com.example.demo.data.dto.DiscenteCompletoDTO;
+import com.example.demo.data.dto.DiscenteDTO;
 import com.example.demo.data.entity.Discente;
 import org.springframework.stereotype.Component;
 

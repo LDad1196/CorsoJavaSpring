@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.data.DTO.DocenteCompletoDTO;
-import com.example.demo.data.DTO.DocenteDTO;
+import com.example.demo.data.dto.DocenteCompletoDTO;
+import com.example.demo.data.dto.DocenteDTO;
 import com.example.demo.service.DocenteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

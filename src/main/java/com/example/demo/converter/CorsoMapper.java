@@ -1,6 +1,6 @@
 package com.example.demo.converter;
 
-import com.example.demo.data.DTO.CorsoDTO;
+import com.example.demo.data.dto.CorsoDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Discente;
 import com.example.demo.data.entity.Docente;
