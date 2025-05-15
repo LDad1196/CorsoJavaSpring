@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.data.DTO.DiscenteCompletoDTO;
 import com.example.demo.data.DTO.DiscenteDTO;
 import com.example.demo.service.DiscenteService;
 import jakarta.validation.Valid;
@@ -21,7 +22,7 @@ public class DiscenteController {
     // LISTA
     @GetMapping("/lista")
     public ModelAndView list() {
-        List<DiscenteDTO> discenti = discenteService.findAll();
+        List<DiscenteDTO> discenti = discenteService.findAllSintetico();
         ModelAndView mav = new ModelAndView("list-discenti");
         mav.addObject("discenti", discenti);
         return mav;
@@ -31,30 +32,30 @@ public class DiscenteController {
     @GetMapping("/nuovo")
     public ModelAndView showAdd() {
         ModelAndView mav = new ModelAndView("form-discente");
-        mav.addObject("discente", new DiscenteDTO());
+        mav.addObject("discente", new DiscenteCompletoDTO());
         return mav;
     }
 
     // SALVA
     @PostMapping("/salva")
-    public ModelAndView create(@Valid @ModelAttribute("discente") DiscenteDTO discenteDTO,
+    public ModelAndView create(@Valid @ModelAttribute("discente") DiscenteCompletoDTO dto,
                                BindingResult br) {
         if (br.hasErrors()) {
-            ModelAndView mav = new ModelAndView("form-discente");
-            mav.addObject("discente", discenteDTO);
-            return mav;
+            ModelAndView modelAndView = new ModelAndView("form-discente");
+            modelAndView.addObject("discente", dto);
+            return modelAndView;
         }
-        discenteService.save(discenteDTO);
+        discenteService.save(dto);
         return new ModelAndView("redirect:/discenti/lista");
     }
 
     // FORM EDIT
     @GetMapping("/{id_discente}/edit")
     public ModelAndView showEdit(@PathVariable("id_discente") Integer id_discente) {
-        DiscenteDTO discenteDTO = discenteService.findById(id_discente);
-        ModelAndView mav = new ModelAndView("form-discente");
-        mav.addObject("discente", discenteDTO);
-        return mav;
+        DiscenteCompletoDTO dto = discenteService.findByIdCompleto(id_discente);
+        ModelAndView modelAndView = new ModelAndView("form-discente");
+        modelAndView.addObject("discente", dto);
+        return modelAndView;
     }
 
     // DELETE
@@ -68,8 +69,9 @@ public class DiscenteController {
     @GetMapping("/cerca")
     public ModelAndView cerca(@RequestParam("nome") String nome) {
         List<DiscenteDTO> risultati = discenteService.cercaPerNome(nome);
-        ModelAndView mav = new ModelAndView("list-discenti");
-        mav.addObject("discenti", risultati);
-        return mav;
+        ModelAndView modelAndView = new ModelAndView("list-discenti");
+        modelAndView.addObject("discenti", risultati);
+        return modelAndView;
     }
+
 }

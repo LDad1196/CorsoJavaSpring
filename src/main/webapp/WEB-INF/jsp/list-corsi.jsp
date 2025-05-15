@@ -17,7 +17,6 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Nome</th>
             <th>Anno Accademico</th>
             <th>Docente</th>
@@ -28,7 +27,6 @@
         <tbody>
         <c:forEach var="corso" items="${corsi}">
             <tr>
-                <td>${corso.id_corso}</td>
                 <td>${corso.nome}</td>
                 <td>${corso.anno_accademico}</td>
                 <td>

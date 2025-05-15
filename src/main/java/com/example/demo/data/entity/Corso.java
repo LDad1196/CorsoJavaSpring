@@ -1,6 +1,5 @@
 package com.example.demo.data.entity;
 
-import com.example.demo.data.DTO.DocenteDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 

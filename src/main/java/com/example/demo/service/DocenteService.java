@@ -54,7 +54,7 @@ public class DocenteService {
         return findAllSintetico().stream()
                 .collect(Collectors.toMap(
                         DocenteDTO::getId_docente,
-                        d -> d.getNome() + " " + d.getCognome()
+                        dto -> dto.getNome() + " " + dto.getCognome()
                 ));
     }
 

@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.converter.DiscenteConverter;
+import com.example.demo.data.DTO.DiscenteCompletoDTO;
 import com.example.demo.data.DTO.DiscenteDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Discente;
@@ -26,23 +27,21 @@ public class DiscenteService {
     @Autowired
     CorsoRepository corsoRepository;
 
-    public List<DiscenteDTO> findAll() {
+    public List<DiscenteDTO> findAllSintetico() {
         return discenteRepository.findAll()
                 .stream()
                 .map(discenteConverter::toDto)
                 .toList();
     }
 
-    public DiscenteDTO findById(Integer id_discente) {
+    public DiscenteCompletoDTO findByIdCompleto(Integer id_discente) {
         return discenteRepository.findById(id_discente)
-                .map(discenteConverter::toDto)
+                .map(discenteConverter::toCompletoDto)
                 .orElse(null);
     }
 
-    public DiscenteDTO save(DiscenteDTO dto) {
-        Discente entity = discenteConverter.toEntity(dto);
-        Discente saved = discenteRepository.save(entity);
-        return discenteConverter.toDto(saved);
+    public void save(DiscenteCompletoDTO dto) {
+        discenteRepository.save(discenteConverter.toEntity(dto));
     }
 
     public List<DiscenteDTO> cercaPerNome(String nome) {
@@ -53,7 +52,7 @@ public class DiscenteService {
     }
 
     public Map<Integer, String> getMappaDiscenti() {
-        return findAll().stream()
+        return findAllSintetico().stream()
                 .collect(Collectors.toMap(
                         DiscenteDTO::getId_discente,
                         d -> d.getNome() + " " + d.getCognome()

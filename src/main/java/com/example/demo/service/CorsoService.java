@@ -8,7 +8,6 @@ import com.example.demo.data.entity.Docente;
 import com.example.demo.repository.CorsoRepository;
 import com.example.demo.repository.DiscenteRepository;
 import com.example.demo.repository.DocenteRepository;
-import jakarta.persistence.SecondaryTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +58,6 @@ public class CorsoService {
         for (Integer id_discente : dto.getId_discenti()) {
             discenteRepository.findById(id_discente).ifPresent(discenti::add);
         }
-
         corsoMapper.updateEntityToDto(dto, corso, docente, discenti);
         corsoRepository.save(corso);
     }

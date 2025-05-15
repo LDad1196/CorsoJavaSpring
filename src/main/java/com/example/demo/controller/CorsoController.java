@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import java.util.List;
 
 @Controller
 @RequestMapping("/corsi")
@@ -24,7 +23,7 @@ public class CorsoController {
     @Autowired
     DiscenteService discenteService;
 
-    //Metodi get
+    //CHIAMATE GET
     //Visualizza lista
     @GetMapping("/lista")
     public ModelAndView list() {
@@ -38,10 +37,10 @@ public class CorsoController {
     //Visualizza form nuovo corso
     @GetMapping("/nuovo")
     public ModelAndView mostraFormNuovoCorso() {
-        ModelAndView modelAndView = new ModelAndView("form-corso"); // nome del JSP nella cartella /WEB-INF/jsp/
+        ModelAndView modelAndView = new ModelAndView("form-corso");
         modelAndView.addObject("corso", new CorsoDTO());
         modelAndView.addObject("docenti", docenteService.findAllSintetico());
-        modelAndView.addObject("discenti", discenteService.findAll());
+        modelAndView.addObject("discenti", discenteService.findAllSintetico());
         return modelAndView;
     }
 
@@ -52,7 +51,7 @@ public class CorsoController {
         ModelAndView modelAndView = new ModelAndView("form-corso");
         modelAndView.addObject("corso", corso);
         modelAndView.addObject("docenti", docenteService.findAllSintetico());
-        modelAndView.addObject("discenti", discenteService.findAll());
+        modelAndView.addObject("discenti", discenteService.findAllSintetico());
         return modelAndView;
     }
 
@@ -72,7 +71,7 @@ public class CorsoController {
             ModelAndView modelAndView = new ModelAndView("form-corso");
             modelAndView.addObject("corso", corsoDTO);
             modelAndView.addObject("docenti", docenteService.findAllSintetico());
-            modelAndView.addObject("discenti", discenteService.findAll());
+            modelAndView.addObject("discenti", discenteService.findAllSintetico());
             return modelAndView;
         }
         corsoService.save(corsoDTO);

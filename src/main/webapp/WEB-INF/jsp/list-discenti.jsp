@@ -28,24 +28,16 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Nome</th>
             <th>Cognome</th>
-            <th>Matricola</th>
-            <th>Età</th>
-            <th>Città</th>
             <th>Azioni</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="discente" items="${discenti}">
             <tr>
-                <td>${discente.id_discente}</td>
                 <td>${discente.nome}</td>
                 <td>${discente.cognome}</td>
-                <td>${discente.matricola}</td>
-                <td>${discente.eta}</td>
-                <td>${discente.citta}</td>
                 <td>
                     <a class="btn btn-sm btn-secondary" href="<c:url value='/discenti/${discente.id_discente}/edit'/>">Modifica</a>
                     <a class="btn btn-sm btn-danger"
