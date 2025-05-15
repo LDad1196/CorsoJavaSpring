@@ -2,43 +2,29 @@ package com.example.demo.converter;
 
 import com.example.demo.data.dto.DiscenteCompletoDTO;
 import com.example.demo.data.dto.DiscenteDTO;
+import com.example.demo.data.dto.DocenteDTO;
 import com.example.demo.data.entity.Discente;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
 @Component
 public class DiscenteConverter {
 
+    @Autowired
+    ModelMapper modelMapper;
+
     public DiscenteDTO toDto(Discente discente) {
-        if (discente == null) return null;
-        DiscenteDTO dto = new DiscenteDTO();
-        dto.setId_discente(discente.getId_discente());
-        dto.setNome(discente.getNome());
-        dto.setCognome(discente.getCognome());
-        return dto;
+        return modelMapper.map(discente, DiscenteDTO.class);
     }
 
     public DiscenteCompletoDTO toCompletoDto(Discente discente) {
-        if (discente == null) return null;
-        DiscenteCompletoDTO dto = new DiscenteCompletoDTO();
-        dto.setId_discente(discente.getId_discente());
-        dto.setNome(discente.getNome());
-        dto.setCognome(discente.getCognome());
-        dto.setMatricola(discente.getMatricola());
-        dto.setEta(discente.getEtà());
-        dto.setCitta(discente.getCittà_di_residenza());
-        return dto;
+        return modelMapper.map(discente, DiscenteCompletoDTO.class);
     }
 
 
     public Discente toEntity(DiscenteCompletoDTO dto) {
-        if (dto == null) return null;
-        Discente discente = new Discente();
-        discente.setId_discente(dto.getId_discente());
-        discente.setNome(dto.getNome());
-        discente.setCognome(dto.getCognome());
-        discente.setMatricola(dto.getMatricola());
-        discente.setEtà(dto.getEta());
-        discente.setCittà_di_residenza(dto.getCitta());
-        return discente;
+        return  modelMapper.map(dto, Discente.class);
     }
 }

@@ -9,10 +9,10 @@ public class DiscenteCompletoDTO extends DiscenteDTO{
     private Integer matricola;
 
     @NotNull
-    private Integer eta;
+    private Integer età;
 
     @NotBlank
-    private String citta;
+    private String città_di_residenza;
 
     public Integer getMatricola() {
         return matricola;
@@ -22,19 +22,19 @@ public class DiscenteCompletoDTO extends DiscenteDTO{
         this.matricola = matricola;
     }
 
-    public Integer getEta() {
-        return eta;
+    public Integer getEtà() {
+        return età;
     }
 
-    public void setEta(Integer eta) {
-        this.eta = eta;
+    public void setEtà(Integer età) {
+        this.età = età;
     }
 
-    public String getCitta() {
-        return citta;
+    public String getCittà_di_residenza() {
+        return città_di_residenza;
     }
 
-    public void setCitta(String citta) {
-        this.citta = citta;
+    public void setCittà_di_residenza(String città_di_residenza) {
+        this.città_di_residenza = città_di_residenza;
     }
 }

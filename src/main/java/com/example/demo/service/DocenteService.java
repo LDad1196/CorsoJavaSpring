@@ -7,7 +7,6 @@ import com.example.demo.data.entity.Docente;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.repository.CorsoRepository;
 import com.example.demo.repository.DocenteRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +25,6 @@ public class DocenteService {
 
     @Autowired
     CorsoRepository corsoRepository;
-
-    @Autowired
-    ModelMapper modelMapper;
-
 
     public List<DocenteDTO> findAllSintetico() {
         return docenteRepository.findAll()
