@@ -30,41 +30,28 @@ public class DocenteService {
     @Autowired
     ModelMapper modelMapper;
 
-    public DocenteDTO toDtoSintetico(Docente docente) {
-        return modelMapper.map(docente, DocenteDTO.class);
-    }
-
-    public DocenteCompletoDTO toDtoCompleto(Docente docente) {
-        return modelMapper.map(docente, DocenteCompletoDTO.class);
-    }
-
-    public Docente toEntity(DocenteDTO dto) {
-        return modelMapper.map(dto, Docente.class);
-    }
-
-    public Docente toEntity(DocenteCompletoDTO dto) {
-        return modelMapper.map(dto, Docente.class);
-    }
 
     public List<DocenteDTO> findAllSintetico() {
         return docenteRepository.findAll()
                 .stream()
-                .map(this::toDtoSintetico)
+                .map(docenteConverter::toDto)
                 .toList();
     }
 
     public DocenteCompletoDTO findByIdCompleto(Integer id_docente) {
-        return toDtoCompleto(docenteRepository.findById(id_docente).orElseThrow(() -> new IllegalArgumentException("Docente non trovato!")));
+        return docenteRepository.findById(id_docente)
+                .map(docenteConverter::toCompletoDto)
+                .orElse(null);
     }
 
     public void save(DocenteCompletoDTO dto) {
-        docenteRepository.save(toEntity(dto));
+        docenteRepository.save(docenteConverter.toEntity(dto));
     }
 
     public List<DocenteDTO> cercaPerNome(String nome) {
         return docenteRepository.cercaPerNome(nome)
                 .stream()
-                .map(this::toDtoSintetico)
+                .map(docenteConverter::toDto)
                 .toList();
     }
 

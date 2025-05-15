@@ -14,31 +14,14 @@ public class DocenteConverter {
     ModelMapper modelMapper;
 
     public DocenteDTO toDto(Docente docente) {
-        if (docente == null) return null;
-        DocenteDTO dto = new DocenteDTO();
-        dto.setId_docente(docente.getId_docente());
-        dto.setNome(docente.getNome());
-        dto.setCognome(docente.getCognome());
-        return dto;
+        return modelMapper.map(docente, DocenteDTO.class);
     }
 
     public DocenteCompletoDTO toCompletoDto(Docente docente) {
-        if (docente == null) return null;
-        DocenteCompletoDTO dto = new DocenteCompletoDTO();
-        dto.setId_docente(docente.getId_docente());
-        dto.setNome(docente.getNome());
-        dto.setCognome(docente.getCognome());
-        dto.setData_di_nascita(docente.getData_di_nascita());
-        return dto;
+        return modelMapper.map(docente, DocenteCompletoDTO.class);
     }
 
     public Docente toEntity(DocenteCompletoDTO dto) {
-        if (dto == null) return null;
-        Docente docente = new Docente();
-        docente.setId_docente(dto.getId_docente());
-        docente.setNome(dto.getNome());
-        docente.setCognome(dto.getCognome());
-        docente.setData_di_nascita(dto.getData_di_nascita());
-        return docente;
+        return modelMapper.map(dto, Docente.class);
     }
 }
