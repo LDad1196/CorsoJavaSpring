@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/corsi")
 public class CorsoApiController {
 
     @Autowired
     CorsoService corsoService;
 
-    @RequestMapping("/api/corsi/list")
+    @RequestMapping("/list")
     public Iterable<CorsoDTO> list () {
         return corsoService.findAll();
     }

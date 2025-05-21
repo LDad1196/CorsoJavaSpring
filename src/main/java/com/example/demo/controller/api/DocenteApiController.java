@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/docenti")
 public class DocenteApiController {
 
     @Autowired
     DocenteService docenteService;
 
-    @RequestMapping("/api/docenti/list")
+    @RequestMapping("/list")
     public Iterable<DocenteDTO> getAll() {
         return docenteService.findAllSintetico();
     }

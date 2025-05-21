@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/discenti")
 public class DiscenteApiController {
 
     @Autowired
     DiscenteService discenteService;
 
-    @RequestMapping("/api/discenti/list")
+    @RequestMapping("/list")
     public Iterable<DiscenteDTO> list () {
         return discenteService.findAllSintetico();
     }
