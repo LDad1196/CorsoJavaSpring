@@ -5,36 +5,15 @@ import jakarta.validation.constraints.NotNull;
 
 public class DiscenteCompletoDTO extends DiscenteDTO{
 
-    @NotNull
-    private Integer matricola;
+    private Integer id_discente;
 
-    @NotNull
-    private Integer eta;
-
-    @NotBlank
-    private String citta;
-
-    public Integer getMatricola() {
-        return matricola;
+    public Integer getId_discente() {
+        return id_discente;
     }
 
-    public void setMatricola(Integer matricola) {
-        this.matricola = matricola;
+    public void setId_discente(Integer id_discente) {
+        this.id_discente = id_discente;
     }
 
-    public Integer getEta() {
-        return eta;
-    }
 
-    public void setEta(Integer eta) {
-        this.eta = eta;
-    }
-
-    public String getCitta() {
-        return citta;
-    }
-
-    public void setCitta(String citta) {
-        this.citta = citta;
-    }
 }

@@ -22,8 +22,8 @@ public class DocenteApiController {
     }
 
     @GetMapping("/{id_docente}")
-    public DocenteCompletoDTO getById(@PathVariable("id_docente") Integer id_docente) {
-        return docenteService.findByIdCompleto(id_docente);
+    public DocenteDTO getById(@PathVariable("id_docente") Integer id_docente) {
+        return docenteService.findById(id_docente);
     }
 
     @PostMapping

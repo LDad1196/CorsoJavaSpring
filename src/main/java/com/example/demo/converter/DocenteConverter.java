@@ -11,9 +11,9 @@ public class DocenteConverter {
     public DocenteDTO toDto(Docente docente) {
         if (docente == null) return null;
         DocenteDTO dto = new DocenteDTO();
-        dto.setId_docente(docente.getId_docente());
         dto.setNome(docente.getNome());
         dto.setCognome(docente.getCognome());
+        dto.setData_di_nascita(docente.getData_di_nascita());
         return dto;
     }
 
@@ -27,10 +27,9 @@ public class DocenteConverter {
         return dto;
     }
 
-    public Docente toEntity(DocenteCompletoDTO dto) {
+    public Docente toEntity(DocenteDTO dto) {
         if (dto == null) return null;
         Docente docente = new Docente();
-        docente.setId_docente(dto.getId_docente());
         docente.setNome(dto.getNome());
         docente.setCognome(dto.getCognome());
         docente.setData_di_nascita(dto.getData_di_nascita());

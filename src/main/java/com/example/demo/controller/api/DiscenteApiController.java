@@ -19,8 +19,8 @@ public class DiscenteApiController {
     }
 
     @GetMapping("/{id_discente}")
-    public DiscenteCompletoDTO getById(@PathVariable("id_discente") Integer id_discente) {
-        return discenteService.findByIdCompleto(id_discente);
+    public DiscenteDTO getById(@PathVariable("id_discente") Integer id_discente) {
+        return discenteService.findById(id_discente);
     }
 
     @PostMapping

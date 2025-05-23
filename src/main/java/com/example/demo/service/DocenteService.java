@@ -33,9 +33,9 @@ public class DocenteService {
                 .toList();
     }
 
-    public DocenteCompletoDTO findByIdCompleto(Integer id_docente) {
+    public DocenteDTO findById(Integer id_docente) {
         return docenteRepository.findById(id_docente)
-                .map(docenteConverter::toCompletoDto)
+                .map(docenteConverter::toDto)
                 .orElse(null);
     }
 
@@ -50,13 +50,6 @@ public class DocenteService {
                 .toList();
     }
 
-    public Map<Integer, String> getMappaDocenti() {
-        return findAllSintetico().stream()
-                .collect(Collectors.toMap(
-                        DocenteDTO::getId_docente,
-                        dto -> dto.getNome() + " " + dto.getCognome()
-                ));
-    }
 
     public void deleteById(Integer id_docente) {
         Docente docente = docenteRepository.findById(id_docente)

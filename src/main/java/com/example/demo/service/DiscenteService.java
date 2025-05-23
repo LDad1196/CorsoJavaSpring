@@ -34,7 +34,7 @@ public class DiscenteService {
                 .toList();
     }
 
-    public DiscenteCompletoDTO findByIdCompleto(Integer id_discente) {
+    public DiscenteDTO findById(Integer id_discente) {
         return discenteRepository.findById(id_discente)
                 .map(discenteConverter::toCompletoDto)
                 .orElse(null);
@@ -51,13 +51,6 @@ public class DiscenteService {
                 .toList();
     }
 
-    public Map<Integer, String> getMappaDiscenti() {
-        return findAllSintetico().stream()
-                .collect(Collectors.toMap(
-                        DiscenteDTO::getId_discente,
-                        d -> d.getNome() + " " + d.getCognome()
-                ));
-    }
 
 
     public void deleteByIdConRimozioneDaCorsi(Integer id_discente) {

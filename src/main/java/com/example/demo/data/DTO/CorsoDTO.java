@@ -15,9 +15,9 @@ public class CorsoDTO {
     @NotBlank
     private String anno_accademico;
 
-    private Integer id_docente;
+    private DocenteDTO docente;
 
-    private Set<Integer> id_discenti = new HashSet<>();
+    private Set<DiscenteDTO> discenti = new HashSet<>();
 
     public String getAnno_accademico() {
         return anno_accademico;
@@ -31,13 +31,6 @@ public class CorsoDTO {
         return id_corso;
     }
 
-    public Set<Integer> getId_discenti() {
-        return id_discenti;
-    }
-
-    public void setId_discenti(Set<Integer> id_discenti) {
-        this.id_discenti = id_discenti;
-    }
 
     public void setId_corso(Integer id_corso) {
         this.id_corso = id_corso;
@@ -51,12 +44,21 @@ public class CorsoDTO {
         this.nome = nome;
     }
 
-    public Integer getId_docente() {
-        return id_docente;
+    public DocenteDTO getDocente() {
+        return docente;
     }
 
-    public void setId_docente(Integer id_docente) {
-        this.id_docente = id_docente;
+    public void setDocente(DocenteDTO docente) {
+        this.docente = docente;
     }
+
+    public Set<DiscenteDTO> getDiscenti() {
+        return discenti;
+    }
+
+    public void setDiscenti(Set<DiscenteDTO> discenti) {
+        this.discenti = discenti;
+    }
+
 
 }

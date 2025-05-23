@@ -1,7 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.converter.CorsoMapper;
+import com.example.demo.converter.DiscenteConverter;
+import com.example.demo.converter.DocenteConverter;
 import com.example.demo.data.DTO.CorsoDTO;
+import com.example.demo.data.DTO.DiscenteDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Discente;
 import com.example.demo.data.entity.Docente;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -28,7 +32,13 @@ public class CorsoService {
     private DiscenteRepository discenteRepository;
 
     @Autowired
+    private DocenteConverter docenteConverter;
+
+    @Autowired
     private CorsoMapper corsoMapper;
+
+    @Autowired
+    private DiscenteConverter discenteConverter;
 
     public List<CorsoDTO> findAll() {
         return corsoRepository.findAll()
@@ -52,14 +62,45 @@ public class CorsoService {
             corso = new Corso();
         }
 
-        Docente docente = docenteRepository.findById(dto.getId_docente()).orElseThrow();
+        Docente docente;
+        if (dto.getDocente() != null) {
+            // Verifica se il docente esiste basandosi su nome, cognome e data_di_nascita
+            Optional<Docente> existingDocente = docenteRepository.findByNomeAndCognomeAndDataDiNascita
+                    (
+                    dto.getDocente().getNome(),
+                    dto.getDocente().getCognome(),
+                    dto.getDocente().getData_di_nascita());
+
+            if (existingDocente.isPresent()) {
+                docente = existingDocente.get();
+            } else {
+                // Crea un nuovo docente
+                docente = docenteConverter.toEntity(dto.getDocente());
+                docente = docenteRepository.save(docente);
+            }
+        } else {
+            throw new IllegalArgumentException("Il docente è obbligatorio");
+        }
 
         Set<Discente> discenti = new HashSet<>();
-        for (Integer id_discente : dto.getId_discenti()) {
-            discenteRepository.findById(id_discente).ifPresent(discenti::add);
+        if (dto.getDiscenti() != null && !dto.getDiscenti().isEmpty()) {
+            for (DiscenteDTO discenteDTO : dto.getDiscenti()) {
+                // Verifica se il discente esiste basandosi su matricola
+                Optional<Discente> existingDiscente = discenteRepository.findByMatricola(discenteDTO.getMatricola());
+
+                if (existingDiscente.isPresent()) {
+                    discenti.add(existingDiscente.get());
+                } else {
+                    Discente discente = discenteConverter.toEntity(discenteDTO);
+                    discente = discenteRepository.save(discente);
+                    discenti.add(discente);
+                }
+            }
         }
+
         corsoMapper.updateEntityToDto(dto, corso, docente, discenti);
         corsoRepository.save(corso);
+
     }
 
     public void delete(Integer id_corso) {

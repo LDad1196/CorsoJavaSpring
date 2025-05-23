@@ -11,9 +11,11 @@ public class DiscenteConverter {
     public DiscenteDTO toDto(Discente discente) {
         if (discente == null) return null;
         DiscenteDTO dto = new DiscenteDTO();
-        dto.setId_discente(discente.getId_discente());
         dto.setNome(discente.getNome());
         dto.setCognome(discente.getCognome());
+        dto.setMatricola(discente.getMatricola());
+        dto.setEta(discente.getEtà());
+        dto.setCitta(discente.getCittà_di_residenza());
         return dto;
     }
 
@@ -30,10 +32,9 @@ public class DiscenteConverter {
     }
 
 
-    public Discente toEntity(DiscenteCompletoDTO dto) {
+    public Discente toEntity(DiscenteDTO dto) {
         if (dto == null) return null;
         Discente discente = new Discente();
-        discente.setId_discente(dto.getId_discente());
         discente.setNome(dto.getNome());
         discente.setCognome(dto.getCognome());
         discente.setMatricola(dto.getMatricola());
