@@ -1,6 +1,5 @@
 package com.example.demo.controller.api;
 
-import com.example.demo.data.DTO.CorsoCompletoDTO;
 import com.example.demo.data.DTO.CorsoDTO;
 import com.example.demo.service.CorsoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +23,17 @@ public class CorsoApiController {
     }
 
     @PostMapping
-    public CorsoCompletoDTO create(@RequestBody CorsoCompletoDTO corso) {
-        corsoService.save(corso);
-        return corso;
+    public CorsoDTO create(@RequestBody CorsoDTO corso) {
+        return (CorsoDTO) corsoService.save(corso);
     }
 
+
     @PutMapping("/{id_corso}")
-    public CorsoCompletoDTO update(@PathVariable("id_corso") Integer id_corso,
-                                       @RequestBody CorsoCompletoDTO corso) {
-        corso.setId_corso(id_corso);
-        corsoService.save(corso);
-        return corso;
+    public CorsoDTO update(@PathVariable("id_corso") Integer id_corso,
+                                   @RequestBody CorsoDTO corso) {
+        return corsoService.update(id_corso, corso);
     }
+
 
     @DeleteMapping("{id_corso}")
     public void delete(@PathVariable("id_corso") Integer id_corso) {

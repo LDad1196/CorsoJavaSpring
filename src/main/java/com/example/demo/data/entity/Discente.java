@@ -21,13 +21,13 @@ public class Discente {
     @Column
     private String cognome;
 
-    @Column
+    @Column(nullable = false)
     private Integer matricola;
 
-    @Column
+    @Column(nullable = false)
     private Integer età;
 
-    @Column
+    @Column(nullable = false)
     private String città_di_residenza;
 
     public Discente() {}
