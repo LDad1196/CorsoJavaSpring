@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: demo-admin
+  datasource:
+    url: jdbc:postgresql://localhost:5432/new_scuola
+    username: postgres
+    password: 1234567890
+  server:
+    port: 9090
