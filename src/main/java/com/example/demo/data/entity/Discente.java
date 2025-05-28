@@ -88,11 +88,5 @@ public class Discente {
         this.città_di_residenza = città_di_residenza;
     }
 
-    @ManyToMany(mappedBy = "discenti")
-    private Set<Corso> corsi = new HashSet<>();
-
-    public Set<Corso> getCorsi() {
-        return corsi;
-    }
 }
 

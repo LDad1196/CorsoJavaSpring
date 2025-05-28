@@ -1,10 +1,7 @@
 package com.example.demo.data.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "docente")
@@ -64,14 +61,4 @@ public class Docente {
         this.data_di_nascita = data_di_nascita;
     }
 
-    @OneToMany(
-            mappedBy = "docente",
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
-    )
-    private Set<Corso> corsi = new HashSet<>();
-
-    public Set<Corso> getCorsi() {
-        return corsi;
-    }
 }

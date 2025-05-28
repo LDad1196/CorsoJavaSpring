@@ -1,12 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.converter.CorsoMapper;
 import com.example.demo.converter.DocenteConverter;
 import com.example.demo.data.DTO.DocenteCompletoDTO;
 import com.example.demo.data.DTO.DocenteDTO;
 import com.example.demo.data.entity.Docente;
-import com.example.demo.data.entity.Corso;
-import com.example.demo.repository.CorsoRepository;
 import com.example.demo.repository.DocenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +20,6 @@ public class DocenteService {
     @Autowired
     DocenteConverter docenteConverter;
 
-    @Autowired
-    CorsoRepository corsoRepository;
-
-    @Autowired
-    CorsoMapper corsoMapper;
 
     public List<DocenteDTO> findAllSintetico() {
         return docenteRepository.findAll()
@@ -78,10 +70,6 @@ public class DocenteService {
     public void deleteById(Integer id_docente) {
         Docente docente = docenteRepository.findById(id_docente)
                 .orElseThrow(() -> new IllegalArgumentException("Docente non trovato"));
-        for (Corso corso : docente.getCorsi()) {
-            corso.setDocente(null);
-            corsoRepository.save(corso);
-        }
         docenteRepository.delete(docente);
     }
 }

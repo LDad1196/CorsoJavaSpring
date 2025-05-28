@@ -39,6 +39,6 @@ public class DiscenteApiController {
 
     @DeleteMapping("{id_discente}")
     public void delete(@PathVariable("id_discente") Integer id_discente) {
-        discenteService.deleteByIdConRimozioneDaCorsi(id_discente);
+        discenteService.deleteById(id_discente);
     }
 }
