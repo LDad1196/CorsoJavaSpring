@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.converter.DiscenteConverter;
 import com.example.demo.data.DTO.DiscenteCompletoDTO;
 import com.example.demo.data.DTO.DiscenteDTO;
+import com.example.demo.data.DTO.DocenteCompletoDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Discente;
 import com.example.demo.repository.CorsoRepository;
@@ -39,8 +40,32 @@ public class DiscenteService {
                 .orElse(null);
     }
 
-    public void save(DiscenteDTO dto) {
-        discenteRepository.save(discenteConverter.toEntity(dto));
+    public DiscenteCompletoDTO save(DiscenteCompletoDTO dto) {
+        Discente discente = discenteConverter.toEntity(dto);
+        discente = discenteRepository.save(discente);
+        return discenteConverter.toCompletoDto(discente);
+    }
+
+    public DiscenteCompletoDTO update(Integer id_discente, DiscenteCompletoDTO dto) {
+        Discente discente = discenteRepository.findById(id_discente)
+                .orElseThrow(() -> new IllegalCallerException("ID discente non valido: " + id_discente));
+        if (dto.getNome() != null) {
+            discente.setNome(dto.getNome());
+        }
+        if (dto.getCognome() != null) {
+            discente.setCognome(dto.getCognome());
+        }
+        if (dto.getMatricola() != null) {
+            discente.setMatricola(dto.getMatricola());
+        }
+        if(dto.getEta() != null) {
+            discente.setEtà(dto.getEta());
+        }
+        if(dto.getCitta() != null) {
+            discente.setCittà_di_residenza(dto.getCitta());
+        }
+        discente = discenteRepository.save(discente);
+        return discenteConverter.toCompletoDto(discente);
     }
 
     public List<DiscenteDTO> cercaPerNome(String nome) {
