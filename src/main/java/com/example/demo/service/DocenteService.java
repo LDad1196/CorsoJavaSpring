@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.converter.CorsoMapper;
 import com.example.demo.converter.DocenteConverter;
 import com.example.demo.data.DTO.DocenteCompletoDTO;
 import com.example.demo.data.DTO.DocenteDTO;
@@ -26,6 +27,9 @@ public class DocenteService {
     @Autowired
     CorsoRepository corsoRepository;
 
+    @Autowired
+    CorsoMapper corsoMapper;
+
     public List<DocenteDTO> findAllSintetico() {
         return docenteRepository.findAll()
                 .stream()
@@ -39,9 +43,30 @@ public class DocenteService {
                 .orElse(null);
     }
 
-    public void save(DocenteCompletoDTO dto) {
-        docenteRepository.save(docenteConverter.toEntity(dto));
+    public DocenteCompletoDTO save(DocenteCompletoDTO dto) {
+        Docente entita = docenteConverter.toEntity(dto);
+        entita = docenteRepository.save(entita);
+        return docenteConverter.toCompletoDto(entita);
     }
+
+
+    public DocenteCompletoDTO update(Integer id_docente, DocenteCompletoDTO dto) {
+        // Recupero del docente esistente.
+        Docente docente = docenteRepository.findById(id_docente)
+                .orElseThrow(() -> new IllegalArgumentException("Docente non trovato"));
+        if (dto.getNome() != null) {
+            docente.setNome(dto.getNome());
+        }
+        if (dto.getCognome() != null) {
+            docente.setCognome(dto.getCognome());
+        }
+        if (dto.getData_di_nascita() != null) {
+            docente.setData_di_nascita(dto.getData_di_nascita());
+        }
+        docente = docenteRepository.save(docente);
+        return docenteConverter.toCompletoDto(docente);
+    }
+
 
     public List<DocenteDTO> cercaPerNome(String nome) {
         return docenteRepository.cercaPerNome(nome)

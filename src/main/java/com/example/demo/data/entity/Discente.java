@@ -15,24 +15,19 @@ public class Discente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_discente;
 
-    @Column(nullable = false)
-    @NotBlank(message = "Inserisci il nome")
+    @Column
     private String nome;
 
-    @Column(nullable = false)
-    @NotBlank(message = "Inserisci il cognome")
+    @Column
     private String cognome;
 
-    @Column(nullable = false)
-    @NotNull(message = "Inserisci la matricola")
+    @Column
     private Integer matricola;
 
-    @Column(nullable = false)
-    @NotNull(message = "Inserisci l'età")
+    @Column
     private Integer età;
 
-    @Column(nullable = false)
-    @NotBlank(message = "Inserisci la città di residenza")
+    @Column
     private String città_di_residenza;
 
     public Discente() {}

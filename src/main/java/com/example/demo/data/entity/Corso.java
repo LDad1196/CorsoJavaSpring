@@ -14,12 +14,10 @@ public class Corso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_corso;
 
-    @Column(nullable = false)
-    @NotBlank(message = "Inserisci il nome del corso")
+    @Column
     private String nome;
 
-    @Column(nullable = false)
-    @NotBlank(message = "Inserisci l'anno accedemico")
+    @Column
     private String anno_accademico;
 
     public Corso() {}

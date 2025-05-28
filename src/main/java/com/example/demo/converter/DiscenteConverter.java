@@ -13,9 +13,6 @@ public class DiscenteConverter {
         DiscenteDTO dto = new DiscenteDTO();
         dto.setNome(discente.getNome());
         dto.setCognome(discente.getCognome());
-        dto.setMatricola(discente.getMatricola());
-        dto.setEta(discente.getEtà());
-        dto.setCitta(discente.getCittà_di_residenza());
         return dto;
     }
 
@@ -37,9 +34,6 @@ public class DiscenteConverter {
         Discente discente = new Discente();
         discente.setNome(dto.getNome());
         discente.setCognome(dto.getCognome());
-        discente.setMatricola(dto.getMatricola());
-        discente.setEtà(dto.getEta());
-        discente.setCittà_di_residenza(dto.getCitta());
         return discente;
     }
 }

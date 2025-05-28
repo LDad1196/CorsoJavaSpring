@@ -3,6 +3,7 @@ package com.example.demo.controller.api;
 import com.example.demo.data.DTO.DocenteCompletoDTO;
 import com.example.demo.data.DTO.DocenteDTO;
 import com.example.demo.service.DocenteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,11 +35,11 @@ public class DocenteApiController {
 
     @PutMapping("/{id_docente}")
     public DocenteCompletoDTO update(@PathVariable("id_docente") Integer id_docente,
-                                     @RequestBody DocenteCompletoDTO docente) {
+                                     @RequestBody @Valid DocenteCompletoDTO docente) {
         docente.setId_docente(id_docente);
-        docenteService.save(docente);
-        return docente;
+        return docenteService.update(id_docente, docente);
     }
+
 
     @DeleteMapping("{id_docente}")
     public void delete(@PathVariable("id_docente") Integer id_docente) {

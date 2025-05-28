@@ -12,8 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+
 
 @Service
 public class DiscenteService {
@@ -40,7 +39,7 @@ public class DiscenteService {
                 .orElse(null);
     }
 
-    public void save(DiscenteCompletoDTO dto) {
+    public void save(DiscenteDTO dto) {
         discenteRepository.save(discenteConverter.toEntity(dto));
     }
 

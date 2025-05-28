@@ -13,7 +13,6 @@ public class DocenteConverter {
         DocenteDTO dto = new DocenteDTO();
         dto.setNome(docente.getNome());
         dto.setCognome(docente.getCognome());
-        dto.setData_di_nascita(docente.getData_di_nascita());
         return dto;
     }
 
@@ -27,7 +26,7 @@ public class DocenteConverter {
         return dto;
     }
 
-    public Docente toEntity(DocenteDTO dto) {
+    public Docente toEntity(DocenteCompletoDTO dto) {
         if (dto == null) return null;
         Docente docente = new Docente();
         docente.setNome(dto.getNome());

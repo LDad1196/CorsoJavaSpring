@@ -12,10 +12,9 @@ public interface DocenteRepository extends JpaRepository<Docente, Integer> {
     @Query("SELECT d FROM Docente d WHERE LOWER(d.nome) LIKE LOWER (CONCAT ('%', :nome, '%'))")
     List<Docente> cercaPerNome(@Param("nome") String nome);
 
-    @Query("SELECT d FROM Docente d WHERE d.nome = :nome AND d.cognome = :cognome AND d.data_di_nascita = :data_di_nascita")
-    Optional<Docente> findByNomeAndCognomeAndDataDiNascita(
+    @Query("SELECT d FROM Docente d WHERE d.nome = :nome AND d.cognome = :cognome ")
+    Optional<Docente> findByNomeAndCognome(
             @Param("nome") String nome,
-            @Param("cognome") String cognome,
-            @Param("data_di_nascita") String data_di_nascita);
+            @Param("cognome") String cognome);
 
 }

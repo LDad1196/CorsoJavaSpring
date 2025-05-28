@@ -14,16 +14,13 @@ public class Docente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_docente;
 
-    @Column(nullable = false)
-    @NotBlank(message = "Il nome è obbligatorio")
+    @Column
     private String nome;
 
-    @Column(nullable = false)
-    @NotBlank(message = "Il cognome è obbligatorio")
+    @Column
     private String cognome;
 
-    @Column(nullable = false)
-    @NotBlank(message = "La data di nascita è obbligatorio")
+    @Column
     private String data_di_nascita;
 
     /* costruttori */

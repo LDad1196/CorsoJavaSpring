@@ -3,8 +3,10 @@ package com.example.demo.service;
 import com.example.demo.converter.CorsoMapper;
 import com.example.demo.converter.DiscenteConverter;
 import com.example.demo.converter.DocenteConverter;
+import com.example.demo.data.DTO.CorsoCompletoDTO;
 import com.example.demo.data.DTO.CorsoDTO;
 import com.example.demo.data.DTO.DiscenteDTO;
+import com.example.demo.data.DTO.DocenteCompletoDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Discente;
 import com.example.demo.data.entity.Docente;
@@ -53,11 +55,11 @@ public class CorsoService {
                 .orElse(null);
     }
 
-    public void save(CorsoDTO dto) {
-        Corso corso;
+    public void save(CorsoCompletoDTO dto) {
+        Corso corso = null;
 
         if (dto.getId_corso() != null) {
-            corso = corsoRepository.findById(dto.getId_corso()).orElseThrow();
+            corso = corsoRepository.findById(corso.getId_corso()).orElseThrow();
         } else {
             corso = new Corso();
         }
@@ -65,17 +67,16 @@ public class CorsoService {
         Docente docente;
         if (dto.getDocente() != null) {
             // Verifica se il docente esiste basandosi su nome, cognome e data_di_nascita
-            Optional<Docente> existingDocente = docenteRepository.findByNomeAndCognomeAndDataDiNascita
+            Optional<Docente> existingDocente = docenteRepository.findByNomeAndCognome
                     (
                     dto.getDocente().getNome(),
-                    dto.getDocente().getCognome(),
-                    dto.getDocente().getData_di_nascita());
+                    dto.getDocente().getCognome());
 
             if (existingDocente.isPresent()) {
                 docente = existingDocente.get();
             } else {
                 // Crea un nuovo docente
-                docente = docenteConverter.toEntity(dto.getDocente());
+                docente = docenteConverter.toEntity((DocenteCompletoDTO) dto.getDocente());
                 docente = docenteRepository.save(docente);
             }
         } else {
@@ -86,7 +87,7 @@ public class CorsoService {
         if (dto.getDiscenti() != null && !dto.getDiscenti().isEmpty()) {
             for (DiscenteDTO discenteDTO : dto.getDiscenti()) {
                 // Verifica se il discente esiste basandosi su matricola
-                Optional<Discente> existingDiscente = discenteRepository.findByMatricola(discenteDTO.getMatricola());
+                Optional<Discente> existingDiscente = discenteRepository.findByNomeAndCognome(discenteDTO.getNome(), discenteDTO.getCognome());
 
                 if (existingDiscente.isPresent()) {
                     discenti.add(existingDiscente.get());

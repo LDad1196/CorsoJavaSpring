@@ -12,6 +12,6 @@ public interface DiscenteRepository extends JpaRepository<Discente, Integer> {
     @Query("SELECT s FROM Discente s WHERE LOWER(s.nome) LIKE LOWER (CONCAT ('%', :nome, '%'))")
     List<Discente> cercaPerNome(@Param("nome") String nome);
 
-    Optional<Discente> findByMatricola(Integer matricola);
+    Optional<Discente> findByNomeAndCognome(String nome, String cognome);
 
 }
