@@ -72,4 +72,22 @@ public class DocenteService {
                 .orElseThrow(() -> new IllegalArgumentException("Docente non trovato"));
         docenteRepository.delete(docente);
     }
+
+    // Nuovo metodo per cercare docenti per nome e cognome (restituisce lista)
+    public List<DocenteDTO> getDocentiByNomeAndCognome(String nome, String cognome) {
+        return docenteRepository.findByNomeAndCognome(nome, cognome)
+                .stream()
+                .map(docenteConverter::toDto)
+                .toList();
+    }
+
+
+    public DocenteDTO getDocenteByNomeAndCognome(String nome, String cognome) {
+        List<Docente> docenti = docenteRepository.findByNomeAndCognome(nome, cognome);
+        if (docenti.isEmpty()) {
+            return null;
+        }
+        return docenteConverter.toDto(docenti.get(0));
+    }
+
 }

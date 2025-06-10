@@ -7,7 +7,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 
 @RestController
@@ -25,6 +24,27 @@ public class DocenteApiController {
     @GetMapping("/{id_docente}")
     public DocenteDTO getById(@PathVariable("id_docente") Integer id_docente) {
         return docenteService.findById(id_docente);
+    }
+
+    @GetMapping
+    public List<DocenteDTO> getDocentiByNomeAndCognome(
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) String cognome) {
+
+        if (nome != null && cognome != null) {
+            return docenteService.getDocentiByNomeAndCognome(nome, cognome);
+        }
+
+        // Se non ci sono parametri, restituisce tutti i docenti
+        return docenteService.findAllSintetico();
+    }
+
+    // Endpoint per cercare un singolo docente per nome e cognome
+    @GetMapping("/search")
+    public DocenteDTO getDocenteByNomeAndCognome(
+            @RequestParam String nome,
+            @RequestParam String cognome) {
+        return docenteService.getDocenteByNomeAndCognome(nome, cognome);
     }
 
     @PostMapping

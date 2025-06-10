@@ -11,6 +11,7 @@ public class DocenteConverter {
     public DocenteDTO toDto(Docente docente) {
         if (docente == null) return null;
         DocenteDTO dto = new DocenteDTO();
+        dto.setId_docente(docente.getId_docente());
         dto.setNome(docente.getNome());
         dto.setCognome(docente.getCognome());
         return dto;

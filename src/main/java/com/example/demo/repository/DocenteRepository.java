@@ -16,5 +16,4 @@ public interface DocenteRepository extends JpaRepository<Docente, Integer> {
     List<Docente> findByNomeAndCognome(@Param("nome") String nome,
                                        @Param("cognome") String cognome);
 
-
 }
