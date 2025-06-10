@@ -5,9 +5,19 @@ import jakarta.validation.constraints.NotNull;
 
 public class DiscenteDTO {
 
+    private Integer id_discente;
+
     private String nome;
 
     private String cognome;
+
+    public Integer getId_discente() {
+        return id_discente;
+    }
+
+    public void setId_discente(Integer id_discente) {
+        this.id_discente = id_discente;
+    }
 
     public String getNome() {
         return nome;

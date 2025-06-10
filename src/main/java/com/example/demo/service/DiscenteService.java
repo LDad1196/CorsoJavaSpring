@@ -69,6 +69,21 @@ public class DiscenteService {
                 .toList();
     }
 
+    public List<DiscenteDTO> getDiscentiByNomeAndCognome(String nome, String cognome) {
+        return discenteRepository.findByNomeAndCognome(nome, cognome)
+                .stream()
+                .map(discenteConverter::toDto)
+                .toList();
+    }
+
+    // Metodo per cercare un singolo discente per nome e cognome
+    public DiscenteDTO getDiscenteByNomeAndCognome(String nome, String cognome) {
+        List<Discente> discenti = discenteRepository.findByNomeAndCognome(nome, cognome);
+        if (discenti.isEmpty()) {
+            return null;
+        }
+        return discenteConverter.toDto(discenti.get(0));
+    }
 
 
     public void deleteById(Integer id_discente) {

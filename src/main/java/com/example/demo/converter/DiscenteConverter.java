@@ -11,6 +11,7 @@ public class DiscenteConverter {
     public DiscenteDTO toDto(Discente discente) {
         if (discente == null) return null;
         DiscenteDTO dto = new DiscenteDTO();
+        dto.setId_discente(discente.getId_discente());
         dto.setNome(discente.getNome());
         dto.setCognome(discente.getCognome());
         return dto;

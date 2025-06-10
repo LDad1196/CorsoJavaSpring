@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/discenti")
 public class DiscenteApiController {
@@ -41,4 +43,26 @@ public class DiscenteApiController {
     public void delete(@PathVariable("id_discente") Integer id_discente) {
         discenteService.deleteById(id_discente);
     }
+
+    @GetMapping
+    public List<DiscenteDTO> getDiscentiByNomeAndCognome(
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) String cognome) {
+
+        if (nome != null && cognome != null) {
+            return discenteService.getDiscentiByNomeAndCognome(nome, cognome);
+        }
+
+        // Se non ci sono parametri, restituisce tutti i discenti
+        return discenteService.findAllSintetico();
+    }
+
+    // Endpoint per cercare un singolo discente per nome e cognome
+    @GetMapping("/search")
+    public DiscenteDTO getDiscenteByNomeAndCognome(
+            @RequestParam String nome,
+            @RequestParam String cognome) {
+        return discenteService.getDiscenteByNomeAndCognome(nome, cognome);
+    }
+
 }
