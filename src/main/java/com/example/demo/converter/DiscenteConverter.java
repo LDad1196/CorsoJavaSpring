@@ -23,17 +23,20 @@ public class DiscenteConverter {
         dto.setNome(discente.getNome());
         dto.setCognome(discente.getCognome());
         dto.setMatricola(discente.getMatricola());
-        dto.setEta(discente.getEtà());
-        dto.setCitta(discente.getCittà_di_residenza());
+        dto.setEta(discente.getEta());
+        dto.setCitta(discente.getCitta());
         return dto;
     }
 
 
-    public Discente toEntity(DiscenteDTO dto) {
+    public Discente toEntity(DiscenteCompletoDTO dto) {
         if (dto == null) return null;
         Discente discente = new Discente();
         discente.setNome(dto.getNome());
         discente.setCognome(dto.getCognome());
+        discente.setEta(dto.getEta());
+        discente.setMatricola(dto.getMatricola());
+        discente.setCitta(dto.getCitta());
         return discente;
     }
 }

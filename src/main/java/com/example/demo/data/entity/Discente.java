@@ -21,23 +21,23 @@ public class Discente {
     @Column
     private String cognome;
 
-    @Column(nullable = false)
+    @Column
     private Integer matricola;
 
-    @Column(nullable = false)
-    private Integer età;
+    @Column
+    private Integer eta;
 
-    @Column(nullable = false)
-    private String città_di_residenza;
+    @Column
+    private String citta;
 
     public Discente() {}
 
-    public Discente(String nome, String cognome, Integer matricola, Integer età, String città_di_residenza) {
+    public Discente(String nome, String cognome, Integer matricola, Integer eta, String citta) {
         this.nome = nome;
         this.cognome = cognome;
         this.matricola = matricola;
-        this.età = età;
-        this.città_di_residenza = città_di_residenza;
+        this.eta = eta;
+        this.citta = citta;
     }
 
     public Integer getId_discente() {
@@ -56,12 +56,12 @@ public class Discente {
         return matricola;
     }
 
-    public Integer getEtà() {
-        return età;
+    public Integer getEta() {
+        return eta;
     }
 
-    public String getCittà_di_residenza() {
-        return città_di_residenza;
+    public String getCitta() {
+        return citta;
     }
 
     public void setId_discente(Integer id_discente) {
@@ -80,12 +80,12 @@ public class Discente {
         this.matricola = matricola;
     }
 
-    public void setEtà(Integer età) {
-        this.età = età;
+    public void setEta(Integer eta) {
+        this.eta = eta;
     }
 
-    public void setCittà_di_residenza(String città_di_residenza) {
-        this.città_di_residenza = città_di_residenza;
+    public void setCitta(String citta) {
+        this.citta = citta;
     }
 
     @ManyToMany(mappedBy = "discenti")
@@ -94,5 +94,6 @@ public class Discente {
     public Set<Corso> getCorsi() {
         return corsi;
     }
+    
 }
 
