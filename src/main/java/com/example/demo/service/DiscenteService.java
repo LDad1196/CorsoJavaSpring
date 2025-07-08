@@ -59,10 +59,10 @@ public class DiscenteService {
             discente.setMatricola(dto.getMatricola());
         }
         if(dto.getEta() != null) {
-            discente.setEtà(dto.getEta());
+            discente.setEta(dto.getEta());
         }
         if(dto.getCitta() != null) {
-            discente.setCittà_di_residenza(dto.getCitta());
+            discente.setCitta(dto.getCitta());
         }
         discente = discenteRepository.save(discente);
         return discenteConverter.toCompletoDto(discente);
