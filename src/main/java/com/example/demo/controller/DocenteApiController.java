@@ -45,4 +45,9 @@ public class DocenteApiController {
     public void delete(@PathVariable("id_docente") Integer id_docente) {
         docenteService.deleteById(id_docente);
     }
+
+    @GetMapping("/cercaAvanzata")
+    public List<DocenteCompletoDTO> cercaPerNomeECognome(@RequestParam String nome, @RequestParam String cognome) {
+        return docenteService.cercaPerNomeECognome(nome, cognome);
+    }
 }

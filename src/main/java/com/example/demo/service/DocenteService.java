@@ -74,6 +74,12 @@ public class DocenteService {
                 .toList();
     }
 
+    public List<DocenteCompletoDTO> cercaPerNomeECognome(String nome, String cognome) {
+        return docenteRepository.findByNomeAndCognome(nome, cognome)
+                .stream()
+                .map(docenteConverter::toCompletoDto)
+                .toList();
+    }
 
     public void deleteById(Integer id_docente) {
         Docente docente = docenteRepository.findById(id_docente)
