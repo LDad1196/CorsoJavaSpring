@@ -75,6 +75,13 @@ public class DiscenteService {
                 .toList();
     }
 
+    public List<DiscenteCompletoDTO> cercaPerNomeECognome(String nome, String cognome) {
+        return discenteRepository.findByNomeAndCognome(nome, cognome)
+                .stream()
+                .map(discenteConverter::toCompletoDto)
+                .toList();
+    }
+
 
 
     public void deleteByIdConRimozioneDaCorsi(Integer id_discente) {

@@ -2,10 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.data.DTO.DiscenteCompletoDTO;
 import com.example.demo.data.DTO.DiscenteDTO;
+import com.example.demo.data.DTO.DocenteCompletoDTO;
 import com.example.demo.service.DiscenteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/discenti")
@@ -40,5 +43,10 @@ public class DiscenteApiController {
     @DeleteMapping("{id_discente}")
     public void delete(@PathVariable("id_discente") Integer id_discente) {
         discenteService.deleteByIdConRimozioneDaCorsi(id_discente);
+    }
+
+    @GetMapping("/cercaAvanzata")
+    public List<DiscenteCompletoDTO> cercaPerNomeECognome(@RequestParam String nome, @RequestParam String cognome) {
+        return discenteService.cercaPerNomeECognome(nome, cognome);
     }
 }
