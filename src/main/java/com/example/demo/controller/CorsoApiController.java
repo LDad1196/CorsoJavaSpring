@@ -1,9 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.data.DTO.CorsoDTO;
+import com.example.demo.data.DTO.DiscenteCompletoDTO;
 import com.example.demo.service.CorsoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/corsi")
@@ -33,7 +36,6 @@ public class CorsoApiController {
                                    @RequestBody CorsoDTO corso) {
         return corsoService.update(id_corso, corso);
     }
-
 
     @DeleteMapping("{id_corso}")
     public void delete(@PathVariable("id_corso") Integer id_corso) {

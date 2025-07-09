@@ -7,6 +7,8 @@ import java.util.Set;
 
 public class CorsoDTO {
 
+    private Integer id_corso;
+
     private String nome;
 
     private String anno_accademico;
@@ -14,6 +16,14 @@ public class CorsoDTO {
     private DocenteDTO docente;
 
     private Set<DiscenteDTO> discenti = new HashSet<>();
+
+    public Integer getId_corso() {
+        return id_corso;
+    }
+
+    public void setId_corso(Integer id_corso) {
+        this.id_corso = id_corso;
+    }
 
     public String getAnno_accademico() {
         return anno_accademico;

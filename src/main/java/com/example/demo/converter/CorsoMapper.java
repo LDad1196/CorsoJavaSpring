@@ -41,6 +41,7 @@ public abstract class CorsoMapper {
 
     public void updateEntityToDto(CorsoDTO dto, @MappingTarget Corso corso,
                                   Docente docente, Set<Discente> discenti) {
+        corso.setId_corso(dto.getId_corso());
         corso.setNome(dto.getNome());
         corso.setAnno_accademico(dto.getAnno_accademico());
         corso.setDocente(docente);
